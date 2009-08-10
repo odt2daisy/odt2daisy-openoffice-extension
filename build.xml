@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Author of modifications: Vincent Spiewak - 2009 -->
+
+<project name="Odt2DaisyAddOn" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Addin.</description>
+    <import file="nbproject/build-uno-impl.xml"/>
+
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -pre-uno-package:          called before OXT creation
+      -post-uno-package:         called after OXT creation
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="TypeBrowser2-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+
+    <!-- copy pipeline-lite build according to target.os value -->
+    <target name="-post-jar" depends="check-default-target-os,init-target-os">
+
+        <fail message="target.os value unsset">
+            <condition>
+                <not>
+                    <isset property="target.os"/>
+                </not>
+            </condition>
+        </fail>
+
+        <copy file="${pipeline.build.dir}${file.separator}${pipeline.zip.prefix}-${target.os}.zip"
+              tofile="${pipeline.target.dir}${file.separator}${pipeline.zip.prefix}.zip" />
+
+    </target>
+
+    <!-- if default.target.os specified, use it -->
+    <target name="check-default-target-os" if="default.target.os">
+        <property name="target.os" value="${default.target.os}" />
+        <property name="suffix.target.os" value="" />
+    </target>
+
+    <!-- if target.os not specified, ask it as an input -->
+    <target name="init-target-os" unless="target.os">
+        <input message="Choose extension target plateform:"
+               validargs="${list.target.os}"
+               addproperty="target.os" />
+
+        <property name="suffix.target.os" value="-${target.os}" />
+    </target>
+
+
+    <!-- rebuild extension with some fixes -->
+    <target name="-post-uno-package">
+
+        <echo message="post uno packaging" />
+        <echo message="rebuild uno package with templates for ${target.os} plateform" />
+
+        <!-- unzip extension in a clean dir -->
+        <delete dir="${build.oxt.dir}" />
+        <mkdir dir="${build.oxt.dir}" />
+        <unzip src="${uno.package.name}" dest="${build.oxt.dir}" />
+
+        <!-- add templates folder -->
+        <copy todir="${build.oxt.dir}/${templates.dir}">
+            <fileset dir="${templates.dir}" />
+        </copy>
+
+        <!-- add custom manifest -->
+        <delete file="${build.oxt.dir}${file.separator}META-INF${file.separator}manifest.xml" />
+        
+        <copy file="${src.dir}${file.separator}my-uno-extension-manifest.xml"
+              tofile="${build.oxt.dir}${file.separator}META-INF${file.separator}manifest.xml" />
+
+        <!-- zip the new extension addon -->
+        <delete file="${uno.package.name}" />
+
+        <zip destfile="${project.dir}${file.separator}${dist.dir}${file.separator}${project.name}${suffix.target.os}.oxt"
+             basedir="${build.oxt.dir}" />
+             
+    </target>
+
+</project>

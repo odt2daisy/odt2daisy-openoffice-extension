@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--                                                                    -->
+<!-- odt2daisy - OpenDocument to DAISY XML/Audio                        -->
+<!-- (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved. -->
+<!--                                                                    -->
+<description xmlns="http://openoffice.org/extensions/description/2006" 
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <!-- Release Number -->
+    <version value="2.0"/>
+
+    <!-- Identifier -->
+    <identifier value="com.versusoft.packages.ooo.odt2daisy.addon.Odt2DaisyAddOn"/>
+    
+    <!-- OpenOffice.org Minimal Version -->
+    <dependencies>
+        <OpenOffice.org-minimal-version name="OpenOffice.org 3.0" value="3.0"/>
+    </dependencies>
+    
+    <!-- Auto Update Link -->
+    <update-information>
+        <src xlink:href="http://odt2daisy.sf.net/rss/update.feed.xml"/>
+    </update-information>
+
+    <!-- Extension Dialog Displayed Name -->
+    <display-name>
+       <name lang="en">Export as DAISY XML/Audio (odt2daisy)</name>
+    </display-name>
+
+    <!-- Publisher Name -->
+    <publisher>
+        <name lang="en" xlink:href="http://odt2daisy.sf.net/about/">Vincent SPIEWAK</name>
+    </publisher>
+
+    <!-- Description -->
+    <extension-description>
+        <src xlink:href="description/desc_en.txt" lang="en" />
+    </extension-description>
+
+    <!-- Extension Dialog Icon -->
+     <icon>
+       <default xlink:href="images/daisy-hi-26.gif" />
+       <high-contrast xlink:href="images/daisy-hi-26.gif" />
+     </icon>
+
+
+
+</description>

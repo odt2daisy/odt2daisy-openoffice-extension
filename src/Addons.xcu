@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--                                                                    -->
+<!-- odt2daisy - OpenDocument to DAISY XML/Audio                        -->
+<!-- (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved. -->
+<!--                                                                    -->
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Addons" oor:package="org.openoffice.Office">
+  <node oor:name="AddonUI">
+
+  <node oor:name="OfficeMenuBarMerging">
+   <node oor:name="com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon" oor:op="replace">
+    <node oor:name="S1" oor:op="replace">
+     <prop oor:name="MergePoint">
+      <value>.uno:PickList\.uno:ExportToPDF</value>
+     </prop>
+     <prop oor:name="MergeCommand">
+      <value>AddAfter</value>
+     </prop>
+     <prop oor:name="MergeFallback">
+      <value>AddPath</value>
+     </prop>
+     <node oor:name="MenuItems">
+      <node oor:name="M1" oor:op="replace">
+       <prop oor:name="URL">
+          <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportCommand</value>
+       </prop>
+       <prop oor:name="Title">          
+         <value xml:lang="en">~Export as DAISY XML...</value>
+         <value xml:lang="fr">~Exporter au format DAISY XML...</value>
+         <value xml:lang="it">~Esporta come DAISY XML...</value>
+         <value xml:lang="ja">~DAISY XMLとしてエクスポート...</value>
+         <value xml:lang="sl">~Izvozi kot DAISY XML...</value>
+         <value xml:lang="nl">~Exporteren als DAISY XML...</value>
+         <value xml:lang="gl">~Exportar como DAISY XML...</value>
+         <value xml:lang="ru">~Экспортировать как DAISY XML...</value>
+         <value xml:lang="sv">~Exportera som DAISY XML...</value>
+         <value xml:lang="de">~Als DAISY Exportieren...</value>
+         <value xml:lang="ca">~Exporteu com a DAISY XML...</value>
+         <value xml:lang="es">~Export as DAISY XML...</value>
+         <value xml:lang="zh">~絳堤峈 DAISY XML...</value>
+        </prop>
+      </node>
+      <node oor:name="M2" oor:op="replace">
+       <prop oor:name="Title">          
+         <value xml:lang="en">~Export as Full DAISY...</value>
+         <value xml:lang="fr">~Exporter au format Full DAISY...</value>
+         <value xml:lang="it">~Esporta come Full DAISY...</value>
+         <value xml:lang="ja">~Full DAISYとしてエクスポート...</value>
+         <value xml:lang="sl">~Izvozi kot Full DAISY...</value>
+         <value xml:lang="nl">~Exporteren als Full DAISY...</value>
+         <value xml:lang="gl">~Exportar como Full DAISY...</value>          
+         <value xml:lang="ru">~Экспортировать как Full DAISY...</value>
+         <value xml:lang="sv">~Exportera som Full DAISY...</value>
+         <value xml:lang="de">~Als Full DAISY Exportieren...</value>
+         <value xml:lang="ca">~Exporteu com a Full DAISY...</value>
+         <value xml:lang="es">~Export as Full DAISY...</value>
+         <value xml:lang="zh">~絳堤峈 Full DAISY...</value>
+        </prop>
+        <prop oor:name="URL">
+          <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportFullCommand</value>
+         </prop>
+      </node>
+     </node>
+    </node>
+   </node>
+  </node>
+  
+<node oor:name="OfficeToolbarMerging">
+  <node oor:name="com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon" oor:op="replace">
+   <node oor:name="m1" oor:op="replace">
+    <prop oor:name="MergeToolBar">
+     <value>standardbar</value>
+    </prop>
+    <prop oor:name="MergePoint">
+     <value>.uno:ExportDirectToPDF</value>
+    </prop>
+    <prop oor:name="MergeCommand">
+     <value>AddAfter</value>
+    </prop>
+    <prop oor:name="MergeFallback">
+     <value>AddLast</value>
+    </prop>
+    <prop oor:name="MergeContext">
+     <value/>
+    </prop>
+    <node oor:name="ToolBarItems">
+     <node oor:name="B1" oor:op="replace">
+      <prop oor:name="URL">
+       <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportCommand</value>
+      </prop>
+      <prop oor:name="Title">
+       <value xml:lang="en">Export Directly as DAISY XML</value>
+       <value xml:lang="fr">Export Direct au format DAISY XML</value>
+       <value xml:lang="it">Esporta direttamente come DAISY XML</value>
+       <value xml:lang="ja">DAISY XMLとして直接エクスポート</value>
+       <value xml:lang="sl">Izvozi neposredno kot DAISY XML</value>
+       <value xml:lang="nl">Direct als DAISY XML exporteren</value>
+       <value xml:lang="gl">Exportar directamente como DAISY XML</value>
+       <value xml:lang="ru">Экспортировать непосредственно как DAISY XML</value>
+       <value xml:lang="sv">Exportera direkt som DAISY XML</value>
+       <value xml:lang="de">Direkt als DAISY XML Exportieren</value>
+       <value xml:lang="ca">Exporteu directament com a DAISY XML</value>
+       <value xml:lang="es">Export Directly as DAISY XML</value>
+       <value xml:lang="zh">眻諉絳堤峈 DAISY XML</value>
+      </prop>
+     </node>
+     <node oor:name="B2" oor:op="replace">
+      <prop oor:name="URL">
+       <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportFullCommand</value>
+      </prop>
+      <prop oor:name="Title">
+       <value xml:lang="en">Export Directly as Full DAISY</value>
+       <value xml:lang="fr">Export Direct au format Full DAISY</value>
+       <value xml:lang="it">Esporta direttamente come Full DAISY</value>
+       <value xml:lang="ja">DAISYとして直接エクスポート</value>
+       <value xml:lang="sl">Izvozi neposredno kot Full DAISY</value>
+       <value xml:lang="nl">Direct als DAISY exporteren</value>
+       <value xml:lang="gl">Exportar directamente como Full DAISY</value>
+       <value xml:lang="ru">Экспортировать непосредственно как Full DAISY</value>
+       <value xml:lang="sv">Exportera direkt som Full DAISY</value>
+       <value xml:lang="de">Direkt als Full DAISY Exportieren</value>
+       <value xml:lang="ca">Exporteu directament com a Full DAISY</value>
+       <value xml:lang="es">Export Directly as Full DAISY</value>
+       <value xml:lang="zh">眻諉絳堤峈 Full DAISY</value>
+      </prop>
+     </node>
+    </node>
+   </node>
+  </node>
+ </node>
+
+
+    <node oor:name="Images">
+      <node oor:name="com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon.exportcommand.images" oor:op="replace">
+        <prop oor:name="URL" oor:type="xs:string">
+          <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportCommand</value>
+        </prop>
+        <node oor:name="UserDefinedImages">
+          <prop oor:name="ImageSmallURL">
+            <value>%origin%/images/daisy-hi-16.gif</value>
+          </prop>
+          <prop oor:name="ImageBigURL">
+            <value>%origin%/images/daisy-hi-26.gif</value>
+          </prop>
+
+        </node>
+      </node>
+      <node oor:name="com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon.exportfullcommand.images" oor:op="replace">
+        <prop oor:name="URL" oor:type="xs:string">
+          <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportFullCommand</value>
+        </prop>
+        <node oor:name="UserDefinedImages">
+          <prop oor:name="ImageSmallURL">
+            <value>%origin%/images/daisy-full-hi-16.gif</value>
+          </prop>
+          <prop oor:name="ImageBigURL">
+            <value>%origin%/images/daisy-full-hi-26.gif</value>
+          </prop>
+
+        </node>
+      </node>
+      </node>
+  </node>
+</oor:component-data>
