@@ -448,6 +448,13 @@ public class UnoGUI {
 
             }
 
+            // Correction Processing
+            xStatusIndicator.setText("Correction processing ...");
+            xStatusIndicator.setValue(60);
+            
+            logger.fine("trying daisy correction");
+            odt2daisy.correctionProcessing();
+
             // Set Params according to DAISY Expport dialog
             odt2daisy.setUidParam(dialog.getUid());
             odt2daisy.setTitleParam(dialog.getDoctitle());
@@ -459,17 +466,14 @@ public class UnoGUI {
 
             // Convert as DAISY XML
             xStatusIndicator.setText("Apply XSLT stylesheet ...");
-            xStatusIndicator.setValue(60);
+            xStatusIndicator.setValue(70);
 
             logger.fine("trying daisy translation");
             odt2daisy.convertAsDTBook(exportUrl, IMAGE_DIR);
 
-            //logger.fine("trying daisy correction");
-            //odt2daisy.correctionProcessing(exportUrl);
-
             // DTD Validation
             xStatusIndicator.setText("Validating DAISY XML using DTD ...");
-            xStatusIndicator.setValue(80);
+            xStatusIndicator.setValue(90);
 
             logger.fine("trying daisy DTD validation");
             odt2daisy.validateDTD(exportUrl);
