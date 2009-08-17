@@ -419,7 +419,7 @@ public class ExportDialog {
             xPSetField8.setPropertyValue("Name", _cssCBoxName);
             xPSetField8.setPropertyValue("TabIndex", new Short((short) 8));
             xPSetField8.setPropertyValue("Label", L10N_cssLabelValue);
-            xPSetField8.setPropertyValue("State", new Short((short) 1));
+            xPSetField8.setPropertyValue("State", new Short((short) 0));
 
 
             // Init Bitrate ComboBox
