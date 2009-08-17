@@ -39,8 +39,8 @@
 
     <!-- Extension Dialog Icon -->
      <icon>
-       <default xlink:href="images/daisy-hi-26.gif" />
-       <high-contrast xlink:href="images/daisy-hi-26.gif" />
+       <default xlink:href="images/daisy-hi-42.png" />
+       <high-contrast xlink:href="images/daisy-hi-42.png" />
      </icon>
 
 
