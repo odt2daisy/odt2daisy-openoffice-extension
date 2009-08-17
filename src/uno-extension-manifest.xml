@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--                                                                    -->
-<!-- odt2daisy - OpenDocument to DAISY XML/Audio                        -->
-<!-- (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved. -->
-<!--                                                                    -->
 <manifest:manifest xmlns:manifest="http://openoffice.org/2001/manifest">
   <manifest:file-entry manifest:media-type="application/vnd.sun.star.configuration-data"
                        manifest:full-path="Paths.xcu"/>
