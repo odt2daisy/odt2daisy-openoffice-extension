@@ -149,166 +149,6 @@ public class UnoGUI {
 
     }
 
-    public void saveAsFull() {
-
-        try {
-
-            boolean isInUserFolder = false;
-            boolean isInTmpFolder = false;
-            boolean isExtracted = false;
-            boolean isOutdated = false;
-
-            String extract_dir = null;
-
-            PipelineLite pipelinelite = new PipelineLite(logger);
-
-            // check PipelineLite presence
-            isInUserFolder = PipelineLite.isExctracted(PipelineLite.USERMODE_FOLDER);
-            isInTmpFolder = PipelineLite.isExctracted(PipelineLite.TMPMODE_FOLDER);
-            isExtracted = isInUserFolder || isInTmpFolder;
-
-
-            // check if Pipeline is not outdated
-            // set extract_dir
-            if (isExtracted) {
-                if (isInUserFolder) {
-                    isOutdated = PipelineLite.isOutdated(PipelineLite.USERMODE_FOLDER);
-                    extract_dir = PipelineLite.USERMODE_FOLDER;
-                } else if (isInTmpFolder) {
-                    isOutdated = PipelineLite.isOutdated(PipelineLite.TMPMODE_FOLDER);
-                    extract_dir = PipelineLite.TMPMODE_FOLDER;
-
-                }
-            }
-
-            logger.info("DEBUG extracted:"+isExtracted);
-            logger.info("DEBUG outdated:"+isOutdated);
-            logger.info("DEBUG in home:"+isInUserFolder);
-            logger.info("DEBUG in tmpdir:"+isInTmpFolder);
-
-            // show outdated warning
-            if (isOutdated) {
-
-                UnoAwtUtils.showInfoMessageBox(
-                        parentWindowPeer,
-                        L10N_MessageBox_Info_Title,
-                        L10N_PipelineLite_Update_Message
-                        );
-
-                // force install update 
-                isExtracted = false;
-            }
-
-            // Extract PipelineLite
-            if (!isExtracted) {
-
-
-                // choose user home folder if enough disk space, else tmp
-                if (FileSystemUtils.freeSpaceKb(PipelineLite.USERMODE_FOLDER) > PipelineLite.REQUIRED_KB) {
-                    extract_dir = PipelineLite.USERMODE_FOLDER;
-                } else if (FileSystemUtils.freeSpaceKb(PipelineLite.TMPMODE_FOLDER) > PipelineLite.REQUIRED_KB) {
-                    extract_dir = PipelineLite.TMPMODE_FOLDER;
-                } else {
-
-                    UnoAwtUtils.showErrorMessageBox(
-                            parentWindowPeer,
-                            L10N_MessageBox_Error_Title,
-                            L10N_PipelineLite_Size_Error_Message + " " +
-                            (PipelineLite.REQUIRED_KB / 1000) + "Mo");
-                    return;
-                }
-
-                // show dialog with extract folder info
-                // avoid dialog on update
-                if(!isOutdated){
-                    UnoAwtUtils.showInfoMessageBox(
-                            parentWindowPeer,
-                            L10N_MessageBox_Info_Title,
-                            L10N_PipelineLite_Extract_Message + " " +
-                            extract_dir + PipelineLite.PIPELINE_FOLDER_NAME + " ");
-                }
-
-                // extract pipeline
-                try {
-
-
-                    logger.info("DEBUG: start extraction"+extract_dir);
-                    pipelinelite.extract(extract_dir);
-                    logger.info("DEBUG: end extraction"+extract_dir);
-
-                } catch (Exception e) {
-
-                    String message = L10N_PipelineLite_Extract_Error_Message + "\n";
-                    message += L10N_Export_Aborted_Message
-                            + " "
-                            + logFile.getAbsolutePath();
-
-                    e.printStackTrace();
-                    logger.log(Level.SEVERE, message);
-
-                    UnoAwtUtils.showErrorMessageBox(
-                            parentWindowPeer,
-                            L10N_MessageBox_Error_Title,
-                            message);
-                    return;
-                }
-            }
-
-            // launch narrator
-            try {
-
-                int retcode = pipelinelite.launchNarrator(
-                        extract_dir,
-                        exportUrl,
-                        exportUrl + ".full",
-                        dialog.isFixRoutine(),
-                        dialog.isSentDetection(), 
-                        dialog.getBitrate());
-                
-                logger.info("DEBUG retcode:"+retcode);
-                
-                if(retcode == 0){
-
-                    //showOkSaveAsXML();
-                    logger.info("Save as Full DAISY OK !");
-
-                } else {
-                   // throw new Exception();
-                }
-
-            } catch (Exception e) {
-
-                String message = L10N_PipelineLite_Exec_Error_Message + "\n"; 
-                message += L10N_Export_Aborted_Message + " "+ logFile.getAbsolutePath();
-
-                logger.log(Level.SEVERE, message, e);
-                e.printStackTrace();
-
-                UnoAwtUtils.showErrorMessageBox(
-                        parentWindowPeer,
-                        L10N_MessageBox_Error_Title,
-                        message);
-                return;
-            }
-
-        } catch (Exception e) {
-
-            String message =
-                    L10N_Export_Aborted_Message +
-                    " " + logFile.getAbsolutePath() + "\n";
-
-            e.printStackTrace();
-            logger.log(Level.SEVERE, message,e);
-
-            UnoAwtUtils.showErrorMessageBox(parentWindowPeer,
-                    L10N_MessageBox_InternalError_Title,
-                    message);
-
-            return;
-        }
-
-    }
-
     public boolean saveAsXML() {
 
         Odt2Daisy odt2daisy = null;
@@ -513,6 +353,166 @@ public class UnoGUI {
 
             return false;
 
+        }
+
+    }
+
+    public void saveAsFull() {
+
+        try {
+
+            boolean isInUserFolder = false;
+            boolean isInTmpFolder = false;
+            boolean isExtracted = false;
+            boolean isOutdated = false;
+
+            String extract_dir = null;
+
+            PipelineLite pipelinelite = new PipelineLite(logger);
+
+            // check PipelineLite presence
+            isInUserFolder = PipelineLite.isExctracted(PipelineLite.USERMODE_FOLDER);
+            isInTmpFolder = PipelineLite.isExctracted(PipelineLite.TMPMODE_FOLDER);
+            isExtracted = isInUserFolder || isInTmpFolder;
+
+
+            // check if Pipeline is not outdated
+            // set extract_dir
+            if (isExtracted) {
+                if (isInUserFolder) {
+                    isOutdated = PipelineLite.isOutdated(PipelineLite.USERMODE_FOLDER);
+                    extract_dir = PipelineLite.USERMODE_FOLDER;
+                } else if (isInTmpFolder) {
+                    isOutdated = PipelineLite.isOutdated(PipelineLite.TMPMODE_FOLDER);
+                    extract_dir = PipelineLite.TMPMODE_FOLDER;
+
+                }
+            }
+
+            logger.info("DEBUG extracted:"+isExtracted);
+            logger.info("DEBUG outdated:"+isOutdated);
+            logger.info("DEBUG in home:"+isInUserFolder);
+            logger.info("DEBUG in tmpdir:"+isInTmpFolder);
+
+            // show outdated warning
+            if (isOutdated) {
+
+                UnoAwtUtils.showInfoMessageBox(
+                        parentWindowPeer,
+                        L10N_MessageBox_Info_Title,
+                        L10N_PipelineLite_Update_Message
+                        );
+
+                // force install update
+                isExtracted = false;
+            }
+
+            // Extract PipelineLite
+            if (!isExtracted) {
+
+
+                // choose user home folder if enough disk space, else tmp
+                if (FileSystemUtils.freeSpaceKb(PipelineLite.USERMODE_FOLDER) > PipelineLite.REQUIRED_KB) {
+                    extract_dir = PipelineLite.USERMODE_FOLDER;
+                } else if (FileSystemUtils.freeSpaceKb(PipelineLite.TMPMODE_FOLDER) > PipelineLite.REQUIRED_KB) {
+                    extract_dir = PipelineLite.TMPMODE_FOLDER;
+                } else {
+
+                    UnoAwtUtils.showErrorMessageBox(
+                            parentWindowPeer,
+                            L10N_MessageBox_Error_Title,
+                            L10N_PipelineLite_Size_Error_Message + " " +
+                            (PipelineLite.REQUIRED_KB / 1000) + "Mo");
+                    return;
+                }
+
+                // show dialog with extract folder info
+                // avoid dialog on update
+                if(!isOutdated){
+                    UnoAwtUtils.showInfoMessageBox(
+                            parentWindowPeer,
+                            L10N_MessageBox_Info_Title,
+                            L10N_PipelineLite_Extract_Message + " " +
+                            extract_dir + PipelineLite.PIPELINE_FOLDER_NAME + " ");
+                }
+
+                // extract pipeline
+                try {
+
+
+                    logger.info("DEBUG: start extraction"+extract_dir);
+                    pipelinelite.extract(extract_dir);
+                    logger.info("DEBUG: end extraction"+extract_dir);
+
+                } catch (Exception e) {
+
+                    String message = L10N_PipelineLite_Extract_Error_Message + "\n";
+                    message += L10N_Export_Aborted_Message
+                            + " "
+                            + logFile.getAbsolutePath();
+
+                    e.printStackTrace();
+                    logger.log(Level.SEVERE, message);
+
+                    UnoAwtUtils.showErrorMessageBox(
+                            parentWindowPeer,
+                            L10N_MessageBox_Error_Title,
+                            message);
+                    return;
+                }
+            }
+
+            // launch narrator
+            try {
+
+                int retcode = pipelinelite.launchNarrator(
+                        extract_dir,
+                        exportUrl,
+                        exportUrl + ".full",
+                        dialog.isFixRoutine(),
+                        dialog.isSentDetection(),
+                        dialog.getBitrate());
+
+                logger.info("DEBUG retcode:"+retcode);
+
+                if(retcode == 0){
+
+                    //showOkSaveAsXML();
+                    logger.info("Save as Full DAISY OK !");
+
+                } else {
+                   // throw new Exception();
+                }
+
+            } catch (Exception e) {
+
+                String message = L10N_PipelineLite_Exec_Error_Message + "\n";
+                message += L10N_Export_Aborted_Message + " "+ logFile.getAbsolutePath();
+
+                logger.log(Level.SEVERE, message, e);
+                e.printStackTrace();
+
+                UnoAwtUtils.showErrorMessageBox(
+                        parentWindowPeer,
+                        L10N_MessageBox_Error_Title,
+                        message);
+                return;
+            }
+
+        } catch (Exception e) {
+
+            String message =
+                    L10N_Export_Aborted_Message +
+                    " " + logFile.getAbsolutePath() + "\n";
+
+            e.printStackTrace();
+            logger.log(Level.SEVERE, message,e);
+
+            UnoAwtUtils.showErrorMessageBox(parentWindowPeer,
+                    L10N_MessageBox_InternalError_Title,
+                    message);
+
+            return;
         }
 
     }
