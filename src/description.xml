@@ -6,11 +6,14 @@
 <description xmlns="http://openoffice.org/extensions/description/2006" 
              xmlns:xlink="http://www.w3.org/1999/xlink">
 
-    <!-- Release Number -->
-    <version value="2.0"/>
+    <!-- Release Number (set with ant)-->
+    <version value="2.0.0"/>
+
+    <!-- plateform target (set with ant) -->
+    <platform value="@platform-oxt@" />
 
     <!-- Identifier -->
-    <identifier value="com.versusoft.packages.ooo.odt2daisy.addon.Odt2DaisyAddOn"/>
+    <identifier value="com.versusoft.packages.ooo.odt2daisy.addon.Odt2DaisyAddOn-@platform-oxt@"/>
     
     <!-- OpenOffice.org Minimal Version -->
     <dependencies>

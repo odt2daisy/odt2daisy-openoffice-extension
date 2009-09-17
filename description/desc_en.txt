@@ -1,1 +1,1 @@
-DAISY is an NISO Z39.86 standard for blind, visual impaired, print-disabled and learning-disabled people.
+DAISY is an NISO Z39.86 standard for blind, visual impaired and print-disabled people

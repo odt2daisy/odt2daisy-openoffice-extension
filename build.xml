@@ -123,6 +123,13 @@
         <copy file="${src.dir}${file.separator}my-uno-extension-manifest.xml"
               tofile="${build.oxt.dir}${file.separator}META-INF${file.separator}manifest.xml" />
 
+        <!-- specify target in description.xml -->
+        <delete file="${build.oxt.dir}${file.separator}description.xml" />
+        <filter token="platform-oxt" value="${target.os}"/>
+        <copy file="${src.dir}${file.separator}description.xml"
+              tofile="${build.oxt.dir}${file.separator}description.xml"
+              filtering="true" />
+
         <!-- zip the new extension addon -->
         <delete file="${uno.package.name}" />
 
