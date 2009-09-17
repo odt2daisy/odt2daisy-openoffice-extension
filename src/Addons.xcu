@@ -18,6 +18,9 @@
      <prop oor:name="MergeFallback">
       <value>AddPath</value>
      </prop>
+     <prop oor:name="MergeContext">
+      <value>com.sun.star.text.TextDocument</value>
+     </prop>
      <node oor:name="MenuItems">
       <node oor:name="M1" oor:op="replace">
        <prop oor:name="URL">
@@ -80,7 +83,7 @@
      <value>AddLast</value>
     </prop>
     <prop oor:name="MergeContext">
-     <value/>
+     <value>com.sun.star.text.TextDocument</value>
     </prop>
     <node oor:name="ToolBarItems">
      <node oor:name="B1" oor:op="replace">
