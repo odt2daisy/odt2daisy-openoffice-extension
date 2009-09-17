@@ -68,6 +68,16 @@ public class UnoGUI {
     private static String L10N_PipelineLite_Extract_Message = null;
     private static String L10N_PipelineLite_Extract_Error_Message = null;
     private static String L10N_PipelineLite_Exec_Error_Message = null;
+    private static String L10N_StatusIndicator_Step_1 = null;
+    private static String L10N_StatusIndicator_Step_2 = null;
+    private static String L10N_StatusIndicator_Step_3 = null;
+    private static String L10N_StatusIndicator_Step_4 = null;
+    private static String L10N_StatusIndicator_Step_5 = null;
+    private static String L10N_StatusIndicator_Step_6 = null;
+    private static String L10N_StatusIndicator_Step_7 = null;
+    private static String L10N_StatusIndicator_Step_8 = null;
+    private static String L10N_StatusIndicator_Step_9 = null;
+    private static String L10N_StatusIndicator_Step_10 = null;
 
     private String exportUrl = null;
     private Locale OOoLocale = null;
@@ -128,6 +138,16 @@ public class UnoGUI {
             L10N_PipelineLite_Extract_Message = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("PipelineLite_Extract_Message");
             L10N_PipelineLite_Extract_Error_Message = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("PipelineLite_Extract_Error_Message");
             L10N_PipelineLite_Exec_Error_Message = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("PipelineLite_Exec_Error_Message");
+            L10N_StatusIndicator_Step_1 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_1");
+            L10N_StatusIndicator_Step_2 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_2");
+            L10N_StatusIndicator_Step_3 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_3");
+            L10N_StatusIndicator_Step_4 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_4");
+            L10N_StatusIndicator_Step_5 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_5");
+            L10N_StatusIndicator_Step_6 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_6");
+            L10N_StatusIndicator_Step_7 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_7");
+            L10N_StatusIndicator_Step_8 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_8");
+            L10N_StatusIndicator_Step_9 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_9");
+            L10N_StatusIndicator_Step_10 = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("StatusIndicator_Step_10");
 
             // Init Status Indicator
             xStatusIndicatorFactory = (XStatusIndicatorFactory) UnoRuntime.queryInterface(XStatusIndicatorFactory.class, m_xFrame);
@@ -160,11 +180,11 @@ public class UnoGUI {
         try {
 
             // start status bar
-            xStatusIndicator.start("Export As DAISY XML ...", 100);
+            xStatusIndicator.start(L10N_StatusIndicator_Step_1, 100);
             xStatusIndicator.setValue(5);
 
             // Request a temp file
-            xStatusIndicator.setText("Allocate temporally file ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_2);
             xStatusIndicator.setValue(10);
 
             logger.fine("request a temporary file");
@@ -182,7 +202,7 @@ public class UnoGUI {
 
 
             // Export in ODT Format using Uno API
-            xStatusIndicator.setText("Save ODT file ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_3);
             xStatusIndicator.setValue(15);
 
             logger.fine("save current document in ODT using UNO API");
@@ -199,14 +219,14 @@ public class UnoGUI {
 
 
             // Create and Init odt2daisy
-            xStatusIndicator.setText("Merge XML processing ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_4);
             xStatusIndicator.setValue(20);
 
             logger.fine("create and init odt2daisy");
             odt2daisy = new Odt2Daisy(tmpOdtUrl);
             odt2daisy.init();
 
-            xStatusIndicator.setText("Waiting for user input ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_5);
             xStatusIndicator.setValue(40);
 
             // Stop Progress bar during user inputs
@@ -278,7 +298,7 @@ public class UnoGUI {
                 return false;
             }
 
-            xStatusIndicator.start("Pagination processing ...", 100);
+            xStatusIndicator.start(L10N_StatusIndicator_Step_6, 100);
             xStatusIndicator.setValue(45);
 
             if (dialog.isPaginationEnable()) {
@@ -289,7 +309,7 @@ public class UnoGUI {
             }
 
             // Correction Processing
-            xStatusIndicator.setText("Correction processing ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_7);
             xStatusIndicator.setValue(60);
             
             logger.fine("trying daisy correction");
@@ -305,14 +325,14 @@ public class UnoGUI {
             odt2daisy.setWriteCSSParam(dialog.isWriteCSS());
 
             // Convert as DAISY XML
-            xStatusIndicator.setText("Apply XSLT stylesheet ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_8);
             xStatusIndicator.setValue(70);
 
             logger.fine("trying daisy translation");
             odt2daisy.convertAsDTBook(exportUrl, IMAGE_DIR);
 
             // DTD Validation
-            xStatusIndicator.setText("Validating DAISY XML using DTD ...");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_9);
             xStatusIndicator.setValue(90);
 
             logger.fine("trying daisy DTD validation");
@@ -333,7 +353,7 @@ public class UnoGUI {
                 return false;
             }
 
-            xStatusIndicator.setText("Successfully Exported !");
+            xStatusIndicator.setText(L10N_StatusIndicator_Step_10);
             xStatusIndicator.setValue(100);
 
             return true;
