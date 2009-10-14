@@ -437,7 +437,7 @@ public class ExportDialog {
             xPSetComboBox.setPropertyValue("TabIndex", new Short((short) 9));
             xPSetComboBox.setPropertyValue("StringItemList",
                     new String[]{"32 kbit/s", "48 kbit/s", "64 kbit/s", "128 kbit/s"});
-            xPSetComboBox.setPropertyValue("Text", "48 kbits/s");
+            xPSetComboBox.setPropertyValue("Text", "32 kbits/s");
 
             // Init Fix Routine ComboBox
             Object fixRoutineCBoxModel = xMultiServiceFactory.createInstance(
