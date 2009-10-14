@@ -119,21 +119,21 @@ public class ExportDialog {
 
             /* Init Localized String */
             Locale OOoLocale = new Locale(UnoUtils.getUILocale(m_xContext));
-            L10N_okButtonValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Translate");
-            L10N_cancelButtonValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Cancel");
-            L10N_uidLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("UID") + " : ";
-            L10N_doctitleLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Title") + " : ";
-            L10N_creatorLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Creator") + " : ";
-            L10N_publisherLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Publisher") + " : ";
-            L10N_producerLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Producer") + " : ";
-            L10N_langLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Language") + " : ";
-            L10N_levelLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("use_alternate_level_markup");
-            L10N_pageLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("include_page_numbers");
-            L10N_cssLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("include_CSS");
-            L10N_titleDialogValue = new String(java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("DAISY_DTBook_Translator"));
-            L10N_bitrateLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("Bitrate") + " : ";
-            L10N_fixRoutineLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("fixRoutine");
-            L10N_sentDetectionLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l18n/Bundle", OOoLocale).getString("sentDetection");
+            L10N_okButtonValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Translate");
+            L10N_cancelButtonValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Cancel");
+            L10N_uidLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("UID") + " : ";
+            L10N_doctitleLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Title") + " : ";
+            L10N_creatorLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Creator") + " : ";
+            L10N_publisherLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Publisher") + " : ";
+            L10N_producerLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Producer") + " : ";
+            L10N_langLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Language") + " : ";
+            L10N_levelLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("use_alternate_level_markup");
+            L10N_pageLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("include_page_numbers");
+            L10N_cssLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("include_CSS");
+            L10N_titleDialogValue = new String(java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("DAISY_DTBook_Translator"));
+            L10N_bitrateLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Bitrate") + " : ";
+            L10N_fixRoutineLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("fixRoutine");
+            L10N_sentDetectionLabelValue = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("sentDetection");
 
             XMultiComponentFactory m_xMCF = m_xContext.getServiceManager();
 
