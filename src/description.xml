@@ -28,6 +28,8 @@
     <!-- Extension Dialog Displayed Name -->
     <display-name>
        <name lang="en">Export as DAISY XML/Audio (odt2daisy)</name>
+       <name lang="nl">Exporteer naar DAISY XML/Audio (odt2daisy)</name>
+       <name lang="es">Exportar en formato DAISY XML/Audio (odt2daisy)</name>
     </display-name>
 
     <!-- Publisher Name -->
@@ -38,6 +40,8 @@
     <!-- Description -->
     <extension-description>
         <src xlink:href="description/desc_en.txt" lang="en" />
+        <src xlink:href="description/desc_nl.txt" lang="nl" />
+        <src xlink:href="description/desc_es.txt" lang="es" />
     </extension-description>
 
     <!-- Extension Dialog Icon -->
