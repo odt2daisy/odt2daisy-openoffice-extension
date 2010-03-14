@@ -100,7 +100,13 @@ public class UnoGUI {
     private boolean isFullExport = false;
 
     public UnoGUI(XComponentContext m_xContext, XFrame m_xFrame){
+
         this(m_xContext, m_xFrame, false);
+
+        // Bug 102164 OOo 3.2 (DEV300m48)
+        // http://www.openoffice.org/issues/show_bug.cgi?id=102164
+        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+
     }
 
     public UnoGUI(XComponentContext m_xContext, XFrame m_xFrame, boolean isFullExport) {
