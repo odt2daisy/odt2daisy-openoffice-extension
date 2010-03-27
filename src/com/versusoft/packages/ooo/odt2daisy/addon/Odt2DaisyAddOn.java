@@ -123,7 +123,7 @@ public final class Odt2DaisyAddOn extends WeakBase
         if (aURL.Protocol.compareTo("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:") == 0) {
 
            // Patch OOo Bug 102164 (DEV300m48)
-            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+           //Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
             if (aURL.Path.compareTo("ExportCommand") == 0) {
 
@@ -134,7 +134,7 @@ public final class Odt2DaisyAddOn extends WeakBase
                 gui.stopStatusIndicator();
 
                 if (ret) {
-                    gui.showOkSaveAsXML();
+                   gui.showOkSaveAsXML();
                 }
 
                 gui.flushLogger();

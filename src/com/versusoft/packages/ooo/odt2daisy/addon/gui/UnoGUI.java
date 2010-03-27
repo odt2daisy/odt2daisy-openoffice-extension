@@ -113,6 +113,9 @@ public class UnoGUI {
         
         try {
 
+            // Patch OOo Bug 102164 (DEV300m48)
+            Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+
             // Configuring logger
             logFile = File.createTempFile(LOG_FILENAME, null);
             fh = new FileHandler(logFile.getAbsolutePath());
