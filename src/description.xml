@@ -27,9 +27,10 @@
 
     <!-- Extension Dialog Displayed Name -->
     <display-name>
-       <name lang="en">Export as DAISY XML/Audio (odt2daisy)</name>
-       <name lang="nl">Exporteer naar DAISY XML/Audio (odt2daisy)</name>
-       <name lang="es">Exportar en formato DAISY XML/Audio (odt2daisy)</name>
+       <name lang="en">Export as DAISY / Audiobook (odt2daisy)</name>
+       <name lang="es">Exportar en formato DAISY / Audiolibro (odt2daisy)</name>
+       <name lang="fr">Exporter au format DAISY / Livre Audio (odt2daisy)</name>
+       <name lang="nl">Exporteer naar DAISY / Luisterboek (odt2daisy)</name>
     </display-name>
 
     <!-- Publisher Name -->
@@ -40,8 +41,9 @@
     <!-- Description -->
     <extension-description>
         <src xlink:href="description/desc_en.txt" lang="en" />
-        <src xlink:href="description/desc_nl.txt" lang="nl" />
         <src xlink:href="description/desc_es.txt" lang="es" />
+        <src xlink:href="description/desc_fr.txt" lang="fr" />
+        <src xlink:href="description/desc_nl.txt" lang="nl" />
     </extension-description>
 
     <!-- Extension Dialog Icon -->
