@@ -122,9 +122,6 @@ public final class Odt2DaisyAddOn extends WeakBase
             com.sun.star.beans.PropertyValue[] aArguments) {
         if (aURL.Protocol.compareTo("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:") == 0) {
 
-           // Patch OOo Bug 102164 (DEV300m48)
-           //Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-
             if (aURL.Path.compareTo("ExportCommand") == 0) {
 
                 boolean ret;
