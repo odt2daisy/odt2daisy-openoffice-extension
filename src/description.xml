@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--                                                                    -->
 <!-- odt2daisy - OpenDocument to DAISY XML/Audio                        -->
-<!-- (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved. -->
+<!-- (c) Copyright 2008 - 20011 by Vincent Spiewak, All Rights Reserved. -->
 <!--                                                                    -->
-<description xmlns="http://openoffice.org/extensions/description/2006" 
+<description xmlns="http://openoffice.org/extensions/description/2006"
              xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <!-- Release Number (set with ant)-->
     <version value="2.1.0"/>
 
-    <!-- plateform target (set with ant) -->
-    <platform value="@platform-oxt@" />
+    <!-- Target Platform (set with ant) -->
+    <platform value="@platform-oxt@"/>
 
     <!-- Identifier -->
     <identifier value="com.versusoft.packages.ooo.odt2daisy.addon.Odt2DaisyAddOn-@platform-oxt@"/>
-    
+
     <!-- OpenOffice.org Minimal Version -->
     <dependencies>
         <OpenOffice.org-minimal-version name="OpenOffice.org 3.0" value="3.0"/>
     </dependencies>
-    
+
     <!-- Auto Update Link -->
     <update-information>
         <src xlink:href="http://odt2daisy.sf.net/rss/update.feed.xml"/>
@@ -27,10 +27,11 @@
 
     <!-- Extension Dialog Displayed Name -->
     <display-name>
-       <name lang="en">Export as DAISY / Audiobook (odt2daisy)</name>
-       <name lang="es">Exportar en formato DAISY / Audiolibro (odt2daisy)</name>
-       <name lang="fr">Exporter au format DAISY / Livre Audio (odt2daisy)</name>
-       <name lang="nl">Exporteer naar DAISY / Luisterboek (odt2daisy)</name>
+        <name lang="en">Export as DAISY / Audiobook (odt2daisy)</name>
+        <name lang="es">Exportar en formato DAISY / Audiolibro (odt2daisy)</name>
+        <name lang="fr">Exporter au format DAISY / Livre Audio (odt2daisy)</name>
+        <name lang="nl">Exporteer naar DAISY / Luisterboek (odt2daisy)</name>
+        <name lang="de">Umsetzen nach DAISY-Hörbuch (odt2daisy)</name>
     </display-name>
 
     <!-- Publisher Name -->
@@ -40,17 +41,17 @@
 
     <!-- Description -->
     <extension-description>
-        <src xlink:href="description/desc_en.txt" lang="en" />
-        <src xlink:href="description/desc_es.txt" lang="es" />
-        <src xlink:href="description/desc_fr.txt" lang="fr" />
-        <src xlink:href="description/desc_nl.txt" lang="nl" />
+        <src lang="en" xlink:href="description/desc_en.txt"/>
+        <src lang="es" xlink:href="description/desc_es.txt"/>
+        <src lang="fr" xlink:href="description/desc_fr.txt"/>
+        <src lang="nl" xlink:href="description/desc_nl.txt"/>
     </extension-description>
 
     <!-- Extension Dialog Icon -->
-     <icon>
-       <default xlink:href="images/daisy-hi-42.png" />
-       <high-contrast xlink:href="images/daisy-hi-42.png" />
-     </icon>
+    <icon>
+        <default xlink:href="images/daisy-hi-42.png"/>
+        <high-contrast xlink:href="images/daisy-hi-42.png"/>
+    </icon>
 
 
 
