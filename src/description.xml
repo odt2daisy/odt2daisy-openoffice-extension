@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--                                                                    -->
 <!-- odt2daisy - OpenDocument to DAISY XML/Audio                        -->
-<!-- (c) Copyright 2008 - 20011 by Vincent Spiewak, All Rights Reserved. -->
+<!-- (c) Copyright 2008 - 20011 by Vincent Spiewak and contributors, ...-->
+<!-- ..., All Rights Reserved.                                          -->
 <!--                                                                    -->
 <description xmlns="http://openoffice.org/extensions/description/2006"
              xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <!-- Release Number (set with ant)-->
-    <version value="2.1.0"/>
+    <version value="2.1.1"/>
 
     <!-- Target Platform (set with ant) -->
     <platform value="@platform-oxt@"/>
