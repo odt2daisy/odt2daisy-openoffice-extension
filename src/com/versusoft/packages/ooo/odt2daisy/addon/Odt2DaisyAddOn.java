@@ -83,7 +83,9 @@ public final class Odt2DaisyAddOn extends WeakBase
     public com.sun.star.frame.XDispatch queryDispatch(com.sun.star.util.URL aURL,
             String sTargetFrameName,
             int iSearchFlags) {
-        if (aURL.Protocol.compareTo("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:") == 0) {
+        // replaced aURL.Protocol.compareTo("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:") == 0
+        // see https://sourceforge.net/tracker/?func=detail&aid=2932953&group_id=272398&atid=1158054
+        if (aURL.Protocol.startsWith("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon")) {
             if (aURL.Path.compareTo("ExportCommand") == 0) {
                 return this;
             } else if (aURL.Path.compareTo("ExportFullCommand") == 0) {
@@ -120,7 +122,7 @@ public final class Odt2DaisyAddOn extends WeakBase
     // com.sun.star.frame.XDispatch:
     public void dispatch(com.sun.star.util.URL aURL,
             com.sun.star.beans.PropertyValue[] aArguments) {
-        if (aURL.Protocol.compareTo("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:") == 0) {
+        if (aURL.Protocol.startsWith("com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon")) {
 
             if (aURL.Path.compareTo("ExportCommand") == 0) {
 
