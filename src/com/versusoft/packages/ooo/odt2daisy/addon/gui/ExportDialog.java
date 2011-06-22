@@ -137,6 +137,7 @@ public class ExportDialog {
 
             XMultiComponentFactory m_xMCF = m_xContext.getServiceManager();
 
+            String officeSuite = getOfficeSuiteName(m_xMCF, m_xContext);
 
             // Init Uno Dialog Control
             dialogModel = m_xMCF.createInstanceWithContext(
@@ -156,8 +157,7 @@ public class ExportDialog {
             xPSetDialog.setPropertyValue("PositionY", new Integer(50));
             xPSetDialog.setPropertyValue("Width", new Integer(175));
             xPSetDialog.setPropertyValue("Height", dialogHeight);
-            xPSetDialog.setPropertyValue("Title", L10N_titleDialogValue);
-
+            xPSetDialog.setPropertyValue("Title", L10N_titleDialogValue + " - " + officeSuite);
 
             // get the service manager from the dialog model
             XMultiServiceFactory xMultiServiceFactory = (XMultiServiceFactory) UnoRuntime.queryInterface(
@@ -897,5 +897,56 @@ public class ExportDialog {
             bitrate = 32; // 32 kbit/s is usually sufficient for TTS
         }
         this.bitrate = bitrate;
+    }
+
+    /**
+     * Get the name of the office suite in which the extension is loaded (OpenOffice.org, LibreOffice, ...).
+     * C# version of this method: http://www.oooforum.org/forum/viewtopic.phtml?t=87848
+     * ooRexx version: http://codesnippets.services.openoffice.org/Office/Office.GetOpenOfficeVersionAndLanguage.snip
+     * @param xMCF XMultiComponentFactory
+     * @param xContext XComponentContext
+     * @return The name of the office suite in which the extension is loaded
+     */
+    String getOfficeSuiteName(XMultiComponentFactory xMCF, XComponentContext xContext){
+      String service = "com.sun.star.configuration.ConfigurationAccess";
+      StringBuffer tempName = new StringBuffer();
+
+      try {
+        // instantiate the ConfigurationProvider at the ServiceManager
+        // ConfigurationProvider API: http://api.openoffice.org/docs/common/ref/com/sun/star/configuration/ConfigurationProvider.html
+        Object configProvider = xMCF.createInstanceWithContext("com.sun.star.configuration.ConfigurationProvider", xContext);
+        // cast, as in code at http://stackoverflow.com/questions/3109903/programatically-disabling-openoffice-new-help-and-autotext-shortcuts
+        XMultiServiceFactory xConfigProvider = (com.sun.star.lang.XMultiServiceFactory) UnoRuntime.queryInterface(com.sun.star.lang.XMultiServiceFactory.class, configProvider);
+
+        com.sun.star.beans.PropertyValue[] lParams = new com.sun.star.beans.PropertyValue[1];
+        lParams[0] = new com.sun.star.beans.PropertyValue();
+        lParams[0].Name = new String("nodepath");
+        lParams[0].Value = new String("/org.openoffice.Setup/Product");
+
+        Object xAccess = xConfigProvider.createInstanceWithArguments(service, lParams);
+        // http://api.openoffice.org/docs/common/ref/com/sun/star/container/XNameAccess.html
+        com.sun.star.container.XNameAccess xNameAccess = (com.sun.star.container.XNameAccess) UnoRuntime.queryInterface(com.sun.star.container.XNameAccess.class, xAccess);
+
+        // http://www.oooforum.org/forum/viewtopic.phtml?t=87848 ?
+        // Other example that queries xNameAccess: http://wiki.services.openoffice.org/wiki/Documentation/DevGuide/WritingUNO/Disable_Commands
+        // API: http://api.openoffice.org/docs/common/ref/com/sun/star/container/XNameAccess.html
+        // http://api.openoffice.org/docs/common/ref/com/sun/star/container/XNameAccess-xref.html
+        // Dev guide: http://wiki.services.openoffice.org/wiki/Documentation/DevGuide/FirstSteps/Element_Access#Name_Access
+        /*if (xNameAccess == null) { tempName.append("xNameAccessNULL") ; } else { tempName.append("ACC_"); }*/
+
+        tempName = new StringBuffer( (String) xNameAccess.getByName("ooName") );
+        tempName.append(" ").append( (String) xNameAccess.getByName("ooSetupVersion") );
+        /*
+        String[] allNames = (String[]) xNameAccess.getElementNames();
+        String hasElements = ( (boolean) xNameAccess.hasElements() == true ? "-TRUE-" : "-FALSE-" );
+        String allNamesLength = Integer.toString(allNames.length); // = 7
+        tempName.append(hasElements).append(allNamesLength);
+        */
+      } catch (com.sun.star.uno.Exception ex) {
+        ex.printStackTrace();
+      } catch (java.lang.Exception ex) {
+        ex.printStackTrace();
+      }
+      return tempName.toString();
     }
 }
