@@ -72,9 +72,9 @@ public class ExportDialog {
     private static String _cssCBoxName = "CBox3";
     private static String _fixRoutineCBoxName = "CBox4";
     private static String _sentDetectionCBoxName = "CBox5";
-    // ComboBox
-    private static String _bitrateComboBoxName = "ComboBox1";
-    private static Object bitrateComboBoxModel = null;
+    // bitrate control
+    private static String _bitrateControlName = "bitrate";
+    private static Object bitrateControlModel = null;
     // Localized Strings
     private static String L10N_okButtonValue = null;
     private static String L10N_cancelButtonValue = null;
@@ -423,21 +423,23 @@ public class ExportDialog {
 
 
             // Init Bitrate ComboBox
-            bitrateComboBoxModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlComboBoxModel");
+            bitrateControlModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlListBoxModel"); // replaces UnoControlComboBoxModel with UnoControlListBoxModel
             XPropertySet xPSetComboBox =
-                    (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, bitrateComboBoxModel);
+                    (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, bitrateControlModel);
             xPSetComboBox.setPropertyValue("PositionX", new Integer(48));
             xPSetComboBox.setPropertyValue("PositionY", new Integer(150));
             xPSetComboBox.setPropertyValue("Width", new Integer(45));
             xPSetComboBox.setPropertyValue("Height", new Integer(14));
-            xPSetComboBox.setPropertyValue("Name", _bitrateComboBoxName);
+            xPSetComboBox.setPropertyValue("Name", _bitrateControlName);
             xPSetComboBox.setPropertyValue("Dropdown", new Boolean(true));
             //xPSetComboBox.setPropertyValue("ReadOnly", new Boolean(true));
             xPSetComboBox.setPropertyValue("TabIndex", new Short((short) 9));
             xPSetComboBox.setPropertyValue("StringItemList",
                     new String[]{"32 kbit/s", "48 kbit/s", "64 kbit/s", "128 kbit/s"});
-            xPSetComboBox.setPropertyValue("Text", "32 kbits/s");
+            //xPSetComboBox.setPropertyValue("Text", "32 kbits/s"); // from service UnoControlComboBoxModel
+            short[] selectedItems = {(short) 0};
+            xPSetComboBox.setPropertyValue("SelectedItems", selectedItems); // from service UnoControlListBoxModel
 
             // Init Fix Routine ComboBox
             Object fixRoutineCBoxModel = xMultiServiceFactory.createInstance(
@@ -536,7 +538,7 @@ public class ExportDialog {
 
             if (isFullExport) {
                 xNameCont.insertByName(_bitrateLabelName, bitrateLabelModel);
-                xNameCont.insertByName(_bitrateComboBoxName, bitrateComboBoxModel);
+                xNameCont.insertByName(_bitrateControlName, bitrateControlModel);
                 xNameCont.insertByName(_fixRoutineCBoxName, fixRoutineCBoxModel);
                 xNameCont.insertByName(_sentDetectionCBoxName, sentDetectionCBoxModel);
             }
@@ -598,6 +600,9 @@ public class ExportDialog {
         return isPageEnabled;
     }
 
+    /**
+     * Get values from export dialog and store them.
+     */
     private void updateValues() {
         Object cbox;
         Object text;
@@ -694,21 +699,42 @@ public class ExportDialog {
             }
 
 
-            combobox = xControlCont.getControl(ExportDialog._bitrateComboBoxName);
+            combobox = xControlCont.getControl(ExportDialog._bitrateControlName);
             XComboBox xComboBox = (XComboBox) UnoRuntime.queryInterface(
                     XComboBox.class, combobox);
 
-            XPropertySet xPSetComboBox =
+            XPropertySet xPSetBitRate =
                     (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, bitrateComboBoxModel);
+                    XPropertySet.class, bitrateControlModel);
+
+            String bitrateString = null;
+            String bitrateNumber = null;
             try {
 
-                String bitrateString = xPSetComboBox.getPropertyValue("Text").toString();
-                bitrateString = bitrateString.substring(0, bitrateString.indexOf(" "));
+                // bitrateString = xPSetComboBox.getPropertyValue("Text").toString(); // = code for combobox
+                short[] selectedItems = (short[]) xPSetBitRate.getPropertyValue("SelectedItems");
+                bitrateString = ( (String[]) xPSetBitRate.getPropertyValue("StringItemList") )[selectedItems[0]];
+                bitrateNumber = bitrateString.substring(0, bitrateString.indexOf(" "));
                 setBitrate(Integer.parseInt(bitrateString));
 
-            } catch (Exception e) {
-                // don't happen ...
+            } catch (IndexOutOfBoundsException e) {
+                // bitrateString does not contain a space (e.g. "blah")
+                // or is an empty string:
+                System.err.println("IndexOutOfBoundsException" + 
+                    "    bitrateString = " + bitrateString);
+                setBitrate(32); // continue with default bitrate @@todo define private int
+            } catch (NumberFormatException e) {
+                // The first part of bitrateString is not a number:
+                System.err.println("NumberFormatException" +
+                    "    bitrateString = " + bitrateString);
+                setBitrate(32); // continue with default bitrate
+            } catch (Exception e) { // other exception
+                // Only useful when running from inside NetBeans:
+                System.err.println("Bitrate: exception other than\n" +
+                    "    IndexOutOfBoundsException or NumberFormatException.");
+                System.err.println("bitrateString = " + bitrateString);
+                System.err.println(e.getMessage());
+                System.err.println(e.getStackTrace());
             }
 
         }
@@ -861,7 +887,15 @@ public class ExportDialog {
         return this.bitrate;
     }
 
+    /**
+     * Sets the bitrate, which should be one of 32, 48, 64 or 128 kbit/s.
+     * If the bitrate is not one of these values, it is silently corrected to 32.
+     * @param bitrate (as integer)
+     */
     public void setBitrate(int bitrate) {
+        if ( !(bitrate == 32 || bitrate == 48 || bitrate == 64 || bitrate == 128) ) {
+            bitrate = 32; // 32 kbit/s is usually sufficient for TTS
+        }
         this.bitrate = bitrate;
     }
 }
