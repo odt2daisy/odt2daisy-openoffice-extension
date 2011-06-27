@@ -99,11 +99,14 @@ public class ExportDialog {
     private String producer = null;
     private String lang = null;
     private int bitrate = 0;
+    private int defaultBitrate = 32;
     private boolean alternateLevelMarkup = false;
     private boolean isPageEnabled = true;
     private boolean writeCSS = false;
     private boolean sentDetection = true;
     private boolean fixRoutine = true;
+    private static final Short SHORT_TRUE = new Short((short) 1);
+    private static final Short SHORT_FALSE = new Short((short) 0);
     // in save as full daisy
     private boolean isFullExport = false;
 
@@ -402,7 +405,7 @@ public class ExportDialog {
             xPSetField7.setPropertyValue("Name", _pageCBoxName);
             xPSetField7.setPropertyValue("TabIndex", new Short((short) 7));
             xPSetField7.setPropertyValue("Label", L10N_pageLabelValue);
-            xPSetField7.setPropertyValue("State", new Short((short) 1));
+            xPSetField7.setPropertyValue("State", SHORT_TRUE);
 
 
             // Init CSS File ComboBox            
@@ -419,7 +422,7 @@ public class ExportDialog {
             xPSetField8.setPropertyValue("Name", _cssCBoxName);
             xPSetField8.setPropertyValue("TabIndex", new Short((short) 8));
             xPSetField8.setPropertyValue("Label", L10N_cssLabelValue);
-            xPSetField8.setPropertyValue("State", new Short((short) 0));
+            xPSetField8.setPropertyValue("State", SHORT_FALSE);
 
 
             // Init Bitrate ComboBox
@@ -455,7 +458,7 @@ public class ExportDialog {
             xPSetField10.setPropertyValue("Name", _fixRoutineCBoxName);
             xPSetField10.setPropertyValue("TabIndex", new Short((short) 10));
             xPSetField10.setPropertyValue("Label", L10N_fixRoutineLabelValue);
-            xPSetField10.setPropertyValue("State", new Short((short) 1));
+            xPSetField10.setPropertyValue("State", SHORT_TRUE);
 
             // Init Sent Detection ComboBox
             Object sentDetectionCBoxModel = xMultiServiceFactory.createInstance(
@@ -471,7 +474,7 @@ public class ExportDialog {
             xPSetField11.setPropertyValue("Name", _sentDetectionCBoxName);
             xPSetField11.setPropertyValue("TabIndex", new Short((short) 11));
             xPSetField11.setPropertyValue("Label", L10N_sentDetectionLabelValue);
-            xPSetField11.setPropertyValue("State", new Short((short) 1));
+            xPSetField11.setPropertyValue("State", SHORT_TRUE); // sentence detection should be on by default
 
 
             // posy buttons
@@ -722,12 +725,12 @@ public class ExportDialog {
                 // or is an empty string:
                 System.err.println("IndexOutOfBoundsException" + 
                     "    bitrateString = " + bitrateString);
-                setBitrate(32); // continue with default bitrate @@todo define private int
+                setBitrate(defaultBitrate); // continue with default bitrate
             } catch (NumberFormatException e) {
                 // The first part of bitrateString is not a number:
                 System.err.println("NumberFormatException" +
                     "    bitrateString = " + bitrateString);
-                setBitrate(32); // continue with default bitrate
+                setBitrate(defaultBitrate); // continue with default bitrate
             } catch (Exception e) { // other exception
                 // Only useful when running from inside NetBeans:
                 System.err.println("Bitrate: exception other than\n" +
@@ -894,7 +897,7 @@ public class ExportDialog {
      */
     public void setBitrate(int bitrate) {
         if ( !(bitrate == 32 || bitrate == 48 || bitrate == 64 || bitrate == 128) ) {
-            bitrate = 32; // 32 kbit/s is usually sufficient for TTS
+            bitrate = defaultBitrate; // 32 kbit/s is usually sufficient for TTS
         }
         this.bitrate = bitrate;
     }
