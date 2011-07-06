@@ -151,14 +151,17 @@ public class PipelineLite {
 
     /**
      *
-     * Launch PipelineLite Narrator
+     * Launch PipelineLite Narrator.
+     * See also http://data.daisy.org/projects/pipeline/doc/scripts/Narrator-DtbookToDaisy.html 
      *
      * @param folder
-     * @param fileIn
-     * @param fileOut
-     * @param bitrate
-     * @return execution code (1 on success)
-     * @throws InternalErrorException
+     * @param fileIn Valid DTBook 2005 file.
+     * @param fileOut The base directory of the output.
+     * @param fixRoutine Determines whether Narrator should repair and tidy a suboptimal DTBook document. (See http://data.daisy.org/projects/pipeline/doc/scripts/DTBookFix.html .)
+     * @param sentDetection Selects whether to apply sentence detection to the input document. This is required for synchronising highlighting with the synthetic speech in software-based DAISY players.
+     * @param bitrate The bitrate of the generated MP3 files. A higher value will result in better sound quality but the audio files will be larger.
+     * @return Return code from the Narrator. 0 = OK. 
+     * @throws Exception
      */
     public int launchNarrator(String folder, String fileIn, String fileOut, boolean fixRoutine, boolean sentDetection, int bitrate) throws Exception {
         Runtime runtime = Runtime.getRuntime();
