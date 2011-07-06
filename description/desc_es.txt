@@ -1,1 +1,1 @@
-DAISY (est‡ndar NISO Z39.86) para personas ciegas, con baja visi—n y con problemas de lectura en tinta
+Exportar OpenDocument Text como libro hablado digital DAISY (estándar NISO Z39.86) para personas ciegas, con baja visión y con problemas de lectura en tinta.
