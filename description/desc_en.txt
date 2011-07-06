@@ -1,1 +1,1 @@
-DAISY is a NISO Z39.86 standard for blind, visual impaired and print-disabled people
+DAISY is a standard (NISO Z39.86) for audio books used by blind, visually impaired and print-disabled people.
