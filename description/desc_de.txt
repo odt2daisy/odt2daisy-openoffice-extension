@@ -1,0 +1,1 @@
+DAISY ist ein Standard (NISO Z39.86) fuer Hoerbuecher fuer Blinde, Seh- und Lesebehinderte.
