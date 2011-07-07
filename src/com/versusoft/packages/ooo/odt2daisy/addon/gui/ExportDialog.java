@@ -1,7 +1,7 @@
 /**
  *  odt2daisy - OpenDocument to DAISY XML/Audio
  *
- *  (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved.
+ *  (c) Copyright 2008 - 20011 by Vincent Spiewak and contributors, All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Lesser Public License as published by
@@ -48,6 +48,21 @@ public class ExportDialog {
     private XComponent xComponent;
     private XControlContainer xControlCont;
     private XNameContainer xNameCont;
+    // Dimensions of labels and controls
+    private static int dialogWidth = 220; // was 175
+    private static int dialogHeightDaisyXML = 175;
+    private static int dialogHeightFullDAISY = 210;
+    private static int labelHeight = 9;
+    private static int shortLabelWidth = 42;
+    private static int editFieldWidth = 140; // was 100
+    private static int editFieldHeight = 14;
+    private static int longLabelWidth = 140; // was 100
+    private static int shortLabelPositionX = 12; // was 14
+    private static int longFieldPositionX = 58; // was 48
+    private static int checkBoxPositionX = longFieldPositionX; // was 48
+    private static int langFieldWidth = 22; // was 19
+    private static int bitrateControlWidth = 45;
+    private static int okCancelbuttonWidth = 50;
     // Buttons
     private static String _okButtonName = "Button1";
     private static String _cancelButtonName = "Button2";
@@ -149,16 +164,16 @@ public class ExportDialog {
             // dialog height
             Integer dialogHeight;
             if (isFullExport) {
-                dialogHeight = new Integer(210);
+                dialogHeight = new Integer(dialogHeightFullDAISY);
             } else {
-                dialogHeight = new Integer(175);
+                dialogHeight = new Integer(dialogHeightDaisyXML);
             }
 
             XPropertySet xPSetDialog = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, dialogModel);
             xPSetDialog.setPropertyValue("PositionX", new Integer(100));
             xPSetDialog.setPropertyValue("PositionY", new Integer(50));
-            xPSetDialog.setPropertyValue("Width", new Integer(175));
+            xPSetDialog.setPropertyValue("Width", new Integer(dialogWidth));
             xPSetDialog.setPropertyValue("Height", dialogHeight);
             xPSetDialog.setPropertyValue("Title", L10N_titleDialogValue + " - " + officeSuite);
 
@@ -174,11 +189,11 @@ public class ExportDialog {
             XPropertySet xPSetLabel1 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, uidLabelModel);
 
-            xPSetLabel1.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel1.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel1.setPropertyValue("PositionY", new Integer(17));//63
 
-            xPSetLabel1.setPropertyValue("Width", new Integer(35));
-            xPSetLabel1.setPropertyValue("Height", new Integer(9));
+            xPSetLabel1.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel1.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel1.setPropertyValue("Name", _uidLabelName);
             xPSetLabel1.setPropertyValue("Label", L10N_uidLabelValue);
 
@@ -190,10 +205,10 @@ public class ExportDialog {
             XPropertySet xPSetLabel2 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, doctitleLabelModel);
 
-            xPSetLabel2.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel2.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel2.setPropertyValue("PositionY", new Integer(33));
-            xPSetLabel2.setPropertyValue("Width", new Integer(35));
-            xPSetLabel2.setPropertyValue("Height", new Integer(9));
+            xPSetLabel2.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel2.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel2.setPropertyValue("Name", _doctitleLabelName);
             xPSetLabel2.setPropertyValue("Label", L10N_doctitleLabelValue);
 
@@ -205,10 +220,10 @@ public class ExportDialog {
             XPropertySet xPSetLabel3 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, creatorLabelModel);
 
-            xPSetLabel3.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel3.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel3.setPropertyValue("PositionY", new Integer(48));
-            xPSetLabel3.setPropertyValue("Width", new Integer(35));
-            xPSetLabel3.setPropertyValue("Height", new Integer(9));
+            xPSetLabel3.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel3.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel3.setPropertyValue("Name", _creatorLabelName);
             xPSetLabel3.setPropertyValue("Label", L10N_creatorLabelValue);
 
@@ -220,10 +235,10 @@ public class ExportDialog {
             XPropertySet xPSetLabel4 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, publisherLabelModel);
 
-            xPSetLabel4.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel4.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel4.setPropertyValue("PositionY", new Integer(63));
-            xPSetLabel4.setPropertyValue("Width", new Integer(35));
-            xPSetLabel4.setPropertyValue("Height", new Integer(9));
+            xPSetLabel4.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel4.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel4.setPropertyValue("Name", _publisherLabelName);
             xPSetLabel4.setPropertyValue("Label", L10N_publisherLabelValue);
 
@@ -235,10 +250,10 @@ public class ExportDialog {
             XPropertySet xPSetLabel5 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, producerLabelModel);
 
-            xPSetLabel5.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel5.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel5.setPropertyValue("PositionY", new Integer(78));
-            xPSetLabel5.setPropertyValue("Width", new Integer(35));
-            xPSetLabel5.setPropertyValue("Height", new Integer(9));
+            xPSetLabel5.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel5.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel5.setPropertyValue("Name", _producerLabelName);
             xPSetLabel5.setPropertyValue("Label", L10N_producerLabelValue);
 
@@ -250,10 +265,10 @@ public class ExportDialog {
             XPropertySet xPSetLabel6 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, langLabelModel);
 
-            xPSetLabel6.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel6.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel6.setPropertyValue("PositionY", new Integer(93));
-            xPSetLabel6.setPropertyValue("Width", new Integer(35));
-            xPSetLabel6.setPropertyValue("Height", new Integer(9));
+            xPSetLabel6.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel6.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel6.setPropertyValue("Name", _langLabelName);
             xPSetLabel6.setPropertyValue("Label", L10N_langLabelValue);
             //xPSetLabel6.setPropertyValue("MultiLine", new Boolean(true));
@@ -265,10 +280,10 @@ public class ExportDialog {
             XPropertySet xPSetLabel7 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, bitrateLabelModel);
 
-            xPSetLabel7.setPropertyValue("PositionX", new Integer(14));
+            xPSetLabel7.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
             xPSetLabel7.setPropertyValue("PositionY", new Integer(153));
-            xPSetLabel7.setPropertyValue("Width", new Integer(35));
-            xPSetLabel7.setPropertyValue("Height", new Integer(9));
+            xPSetLabel7.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel7.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel7.setPropertyValue("Name", _bitrateLabelName);
             xPSetLabel7.setPropertyValue("Label", L10N_bitrateLabelValue);
 
@@ -280,12 +295,12 @@ public class ExportDialog {
             XPropertySet xPSetField1 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, uidFieldModel);
 
-            xPSetField1.setPropertyValue("PositionX", new Integer(48));
+            xPSetField1.setPropertyValue("PositionX", new Integer(longFieldPositionX));
             xPSetField1.setPropertyValue("PositionY", new Integer(15));
-            xPSetField1.setPropertyValue("Width", new Integer(100));
-            xPSetField1.setPropertyValue("Height", new Integer(14));
+            xPSetField1.setPropertyValue("Width", new Integer(editFieldWidth));
+            xPSetField1.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField1.setPropertyValue("Name", _uidFieldName);
-            xPSetField1.setPropertyValue("TabIndex", new Short((short) 0));
+            xPSetField1.setPropertyValue("TabIndex", new Short((short) 0)); //@todo check if TabIndex is beneficial.
             //xPSetField1.setPropertyValue("Text", new String("UID"));
 
 
@@ -296,10 +311,10 @@ public class ExportDialog {
             XPropertySet xPSetField2 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, doctitleFieldModel);
 
-            xPSetField2.setPropertyValue("PositionX", new Integer(48));
+            xPSetField2.setPropertyValue("PositionX", new Integer(longFieldPositionX));
             xPSetField2.setPropertyValue("PositionY", new Integer(30));
-            xPSetField2.setPropertyValue("Width", new Integer(100));
-            xPSetField2.setPropertyValue("Height", new Integer(14));
+            xPSetField2.setPropertyValue("Width", new Integer(editFieldWidth));
+            xPSetField2.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField2.setPropertyValue("Name", _doctitleFieldName);
             xPSetField2.setPropertyValue("TabIndex", new Short((short) 1));
             //xPSetField2.setPropertyValue("Text", new String("Doctitle"));
@@ -312,10 +327,10 @@ public class ExportDialog {
             XPropertySet xPSetField3 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, creatorFieldModel);
 
-            xPSetField3.setPropertyValue("PositionX", new Integer(48));
+            xPSetField3.setPropertyValue("PositionX", new Integer(longFieldPositionX));
             xPSetField3.setPropertyValue("PositionY", new Integer(45));
-            xPSetField3.setPropertyValue("Width", new Integer(100));
-            xPSetField3.setPropertyValue("Height", new Integer(14));
+            xPSetField3.setPropertyValue("Width", new Integer(editFieldWidth));
+            xPSetField3.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField3.setPropertyValue("Name", _creatorFieldName);
             xPSetField3.setPropertyValue("TabIndex", new Short((short) 2));
             //xPSetField3.setPropertyValue("Text", new String("Creator"));
@@ -328,10 +343,10 @@ public class ExportDialog {
             XPropertySet xPSetField4 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, publisherFieldModel);
 
-            xPSetField4.setPropertyValue("PositionX", new Integer(48));
+            xPSetField4.setPropertyValue("PositionX", new Integer(longFieldPositionX));
             xPSetField4.setPropertyValue("PositionY", new Integer(60));
-            xPSetField4.setPropertyValue("Width", new Integer(100));
-            xPSetField4.setPropertyValue("Height", new Integer(14));
+            xPSetField4.setPropertyValue("Width", new Integer(editFieldWidth));
+            xPSetField4.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField4.setPropertyValue("Name", _publisherFieldName);
             xPSetField4.setPropertyValue("TabIndex", new Short((short) 3));
             //xPSetField4.setPropertyValue("Text", new String("Publisher"));
@@ -343,10 +358,10 @@ public class ExportDialog {
             XPropertySet xPSetField9 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, producerFieldModel);
 
-            xPSetField9.setPropertyValue("PositionX", new Integer(48));
+            xPSetField9.setPropertyValue("PositionX", new Integer(longFieldPositionX));
             xPSetField9.setPropertyValue("PositionY", new Integer(75));
-            xPSetField9.setPropertyValue("Width", new Integer(100));
-            xPSetField9.setPropertyValue("Height", new Integer(14));
+            xPSetField9.setPropertyValue("Width", new Integer(editFieldWidth));
+            xPSetField9.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField9.setPropertyValue("Name", _producerFieldName);
             xPSetField9.setPropertyValue("TabIndex", new Short((short) 4));
             //xPSetField9.setPropertyValue("Text", new String("Publisher"));
@@ -362,10 +377,10 @@ public class ExportDialog {
             xPSetField5.setPropertyValue("ReadOnly", new Boolean(true));
             xPSetField5.setPropertyValue("Enabled", new Boolean(false));
 
-            xPSetField5.setPropertyValue("PositionX", new Integer(48));
+            xPSetField5.setPropertyValue("PositionX", new Integer(longFieldPositionX));
             xPSetField5.setPropertyValue("PositionY", new Integer(90));
-            xPSetField5.setPropertyValue("Width", new Integer(19));
-            xPSetField5.setPropertyValue("Height", new Integer(14));
+            xPSetField5.setPropertyValue("Width", new Integer(langFieldWidth));
+            xPSetField5.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField5.setPropertyValue("Name", _langFieldName);
             xPSetField5.setPropertyValue("TabIndex", new Short((short) 5));
             //xPSetField5.setPropertyValue("MinTextLen",new Short((short)5));
@@ -373,17 +388,17 @@ public class ExportDialog {
             //xPSetField5.setPropertyValue("Text", new String("lang"));
 
 
-            // Init Level ComboBox
+            // Init Level CheckBox
             Object levelCBoxModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlCheckBoxModel");
 
             XPropertySet xPSetField6 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, levelCBoxModel);
 
-            xPSetField6.setPropertyValue("PositionX", new Integer(48));
+            xPSetField6.setPropertyValue("PositionX", new Integer(checkBoxPositionX));
             xPSetField6.setPropertyValue("PositionY", new Integer(110));
-            xPSetField6.setPropertyValue("Width", new Integer(100));
-            xPSetField6.setPropertyValue("Height", new Integer(14));
+            xPSetField6.setPropertyValue("Width", new Integer(longLabelWidth));
+            xPSetField6.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField6.setPropertyValue("Name", _levelCBoxName);
             xPSetField6.setPropertyValue("TabIndex", new Short((short) 6));
             xPSetField6.setPropertyValue("Label", L10N_levelLabelValue);
@@ -391,34 +406,34 @@ public class ExportDialog {
             //xPSetField6.setPropertyValue("TriState", new Boolean(true));
 
 
-            // Init PageNumbering ComboBox
+            // Init PageNumbering CheckBox
             Object pageCBoxModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlCheckBoxModel");
 
             XPropertySet xPSetField7 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, pageCBoxModel);
 
-            xPSetField7.setPropertyValue("PositionX", new Integer(48));
+            xPSetField7.setPropertyValue("PositionX", new Integer(checkBoxPositionX));
             xPSetField7.setPropertyValue("PositionY", new Integer(120));
-            xPSetField7.setPropertyValue("Width", new Integer(100));
-            xPSetField7.setPropertyValue("Height", new Integer(14));
+            xPSetField7.setPropertyValue("Width", new Integer(longLabelWidth));
+            xPSetField7.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField7.setPropertyValue("Name", _pageCBoxName);
             xPSetField7.setPropertyValue("TabIndex", new Short((short) 7));
             xPSetField7.setPropertyValue("Label", L10N_pageLabelValue);
             xPSetField7.setPropertyValue("State", SHORT_TRUE);
 
 
-            // Init CSS File ComboBox            
+            // Init CSS File CheckBox
             Object cssCBoxModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlCheckBoxModel");
 
             XPropertySet xPSetField8 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, cssCBoxModel);
 
-            xPSetField8.setPropertyValue("PositionX", new Integer(48));
+            xPSetField8.setPropertyValue("PositionX", new Integer(checkBoxPositionX));
             xPSetField8.setPropertyValue("PositionY", new Integer(130));
-            xPSetField8.setPropertyValue("Width", new Integer(100));
-            xPSetField8.setPropertyValue("Height", new Integer(14));
+            xPSetField8.setPropertyValue("Width", new Integer(longLabelWidth));
+            xPSetField8.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField8.setPropertyValue("Name", _cssCBoxName);
             xPSetField8.setPropertyValue("TabIndex", new Short((short) 8));
             xPSetField8.setPropertyValue("Label", L10N_cssLabelValue);
@@ -430,10 +445,10 @@ public class ExportDialog {
                     "com.sun.star.awt.UnoControlListBoxModel"); // replaces UnoControlComboBoxModel with UnoControlListBoxModel
             XPropertySet xPSetComboBox =
                     (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, bitrateControlModel);
-            xPSetComboBox.setPropertyValue("PositionX", new Integer(48));
+            xPSetComboBox.setPropertyValue("PositionX", new Integer(checkBoxPositionX));
             xPSetComboBox.setPropertyValue("PositionY", new Integer(150));
-            xPSetComboBox.setPropertyValue("Width", new Integer(45));
-            xPSetComboBox.setPropertyValue("Height", new Integer(14));
+            xPSetComboBox.setPropertyValue("Width", new Integer(bitrateControlWidth));
+            xPSetComboBox.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetComboBox.setPropertyValue("Name", _bitrateControlName);
             xPSetComboBox.setPropertyValue("Dropdown", new Boolean(true));
             //xPSetComboBox.setPropertyValue("ReadOnly", new Boolean(true));
@@ -444,33 +459,33 @@ public class ExportDialog {
             short[] selectedItems = {(short) 0};
             xPSetComboBox.setPropertyValue("SelectedItems", selectedItems); // from service UnoControlListBoxModel
 
-            // Init Fix Routine ComboBox
+            // Init Fix Routine CheckBox
             Object fixRoutineCBoxModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlCheckBoxModel");
 
             XPropertySet xPSetField10 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, fixRoutineCBoxModel);
 
-            xPSetField10.setPropertyValue("PositionX", new Integer(48));
+            xPSetField10.setPropertyValue("PositionX", new Integer(checkBoxPositionX));
             xPSetField10.setPropertyValue("PositionY", new Integer(165));
-            xPSetField10.setPropertyValue("Width", new Integer(100));
-            xPSetField10.setPropertyValue("Height", new Integer(14));
+            xPSetField10.setPropertyValue("Width", new Integer(longLabelWidth));
+            xPSetField10.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField10.setPropertyValue("Name", _fixRoutineCBoxName);
             xPSetField10.setPropertyValue("TabIndex", new Short((short) 10));
             xPSetField10.setPropertyValue("Label", L10N_fixRoutineLabelValue);
             xPSetField10.setPropertyValue("State", SHORT_TRUE);
 
-            // Init Sent Detection ComboBox
+            // Init Sent Detection CheckBox
             Object sentDetectionCBoxModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlCheckBoxModel");
 
             XPropertySet xPSetField11 = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, sentDetectionCBoxModel);
 
-            xPSetField11.setPropertyValue("PositionX", new Integer(48));
+            xPSetField11.setPropertyValue("PositionX", new Integer(checkBoxPositionX));
             xPSetField11.setPropertyValue("PositionY", new Integer(175));
-            xPSetField11.setPropertyValue("Width", new Integer(100));
-            xPSetField11.setPropertyValue("Height", new Integer(14));
+            xPSetField11.setPropertyValue("Width", new Integer(longLabelWidth));
+            xPSetField11.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetField11.setPropertyValue("Name", _sentDetectionCBoxName);
             xPSetField11.setPropertyValue("TabIndex", new Short((short) 11));
             xPSetField11.setPropertyValue("Label", L10N_sentDetectionLabelValue);
@@ -492,10 +507,10 @@ public class ExportDialog {
             XPropertySet xPSetButton = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, buttonModel);
 
-            xPSetButton.setPropertyValue("PositionX", new Integer(30));
+            xPSetButton.setPropertyValue("PositionX", new Integer(40)); // was 30
             xPSetButton.setPropertyValue("PositionY", posYButtons);
-            xPSetButton.setPropertyValue("Width", new Integer(50));
-            xPSetButton.setPropertyValue("Height", new Integer(14));
+            xPSetButton.setPropertyValue("Width", new Integer(okCancelbuttonWidth));
+            xPSetButton.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetButton.setPropertyValue("Name", _okButtonName);
             xPSetButton.setPropertyValue("TabIndex", new Short((short) 12));
             xPSetButton.setPropertyValue("PushButtonType", (short) PushButtonType.OK_value);
@@ -506,10 +521,10 @@ public class ExportDialog {
                     "com.sun.star.awt.UnoControlButtonModel");
             XPropertySet xPSetCancelButton = (XPropertySet) UnoRuntime.queryInterface(
                     XPropertySet.class, cancelButtonModel);
-            xPSetCancelButton.setPropertyValue("PositionX", new Integer(90));
+            xPSetCancelButton.setPropertyValue("PositionX", new Integer(100)); // was 90
             xPSetCancelButton.setPropertyValue("PositionY", posYButtons);
-            xPSetCancelButton.setPropertyValue("Width", new Integer(50));
-            xPSetCancelButton.setPropertyValue("Height", new Integer(14));
+            xPSetCancelButton.setPropertyValue("Width", new Integer(okCancelbuttonWidth));
+            xPSetCancelButton.setPropertyValue("Height", new Integer(editFieldHeight));
             xPSetCancelButton.setPropertyValue("Name", _cancelButtonName);
             xPSetCancelButton.setPropertyValue("TabIndex", new Short((short) 13));
             xPSetCancelButton.setPropertyValue("PushButtonType", (short) PushButtonType.CANCEL_value);
