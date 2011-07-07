@@ -32,14 +32,14 @@
          <value xml:lang="it">~Esporta come DAISY XML...</value>
          <value xml:lang="ja">~DAISY XMLとしてエクスポート...</value>
          <value xml:lang="sl">~Izvozi kot DAISY XML...</value>
-         <value xml:lang="nl">~Exporteren als DAISY XML...</value>
+         <value xml:lang="nl">~Exporteren als DAISY-XML...</value>
          <value xml:lang="gl">~Exportar como DAISY XML...</value>
          <value xml:lang="ru">~Экспортировать как DAISY XML...</value>
          <value xml:lang="sv">~Exportera som DAISY XML...</value>
-         <value xml:lang="de">~Als DAISY Exportieren...</value>
+         <value xml:lang="de">~Als DAISY-XML Exportieren...</value>
          <value xml:lang="ca">~Exporteu com a DAISY XML...</value>
          <value xml:lang="es">~Export as DAISY XML...</value>
-         <value xml:lang="zh">~絳堤峈 DAISY XML...</value>
+         <value xml:lang="zh">~输出为 DAISY XML...</value>
         </prop>
       </node>
       <node oor:name="M2" oor:op="replace">
@@ -56,7 +56,7 @@
          <value xml:lang="de">~Als Full DAISY Exportieren...</value>
          <value xml:lang="ca">~Exporteu com a Full DAISY...</value>
          <value xml:lang="es">~Export as Full DAISY...</value>
-         <value xml:lang="zh">~絳堤峈 Full DAISY...</value>
+         <value xml:lang="zh">~输出为 Full DAISY...</value>
         </prop>
         <prop oor:name="URL">
           <value>com.versusoft.packages.ooo.odt2daisy.addon.odt2daisyaddon:ExportFullCommand</value>
@@ -96,14 +96,14 @@
        <value xml:lang="it">Esporta direttamente come DAISY XML</value>
        <value xml:lang="ja">DAISY XMLとして直接エクスポート</value>
        <value xml:lang="sl">Izvozi neposredno kot DAISY XML</value>
-       <value xml:lang="nl">Direct als DAISY XML exporteren</value>
+       <value xml:lang="nl">Direct als DAISY-XML exporteren</value>
        <value xml:lang="gl">Exportar directamente como DAISY XML</value>
        <value xml:lang="ru">Экспортировать непосредственно как DAISY XML</value>
        <value xml:lang="sv">Exportera direkt som DAISY XML</value>
-       <value xml:lang="de">Direkt als DAISY XML Exportieren</value>
+       <value xml:lang="de">Direkt als DAISY-XML Exportieren</value>
        <value xml:lang="ca">Exporteu directament com a DAISY XML</value>
        <value xml:lang="es">Export Directly as DAISY XML</value>
-       <value xml:lang="zh">眻諉絳堤峈 DAISY XML</value>
+       <value xml:lang="zh">直接地输出为 DAISY XML</value>
       </prop>
      </node>
      <node oor:name="B2" oor:op="replace">
@@ -123,7 +123,7 @@
        <value xml:lang="de">Direkt als Full DAISY Exportieren</value>
        <value xml:lang="ca">Exporteu directament com a Full DAISY</value>
        <value xml:lang="es">Export Directly as Full DAISY</value>
-       <value xml:lang="zh">眻諉絳堤峈 Full DAISY</value>
+       <value xml:lang="zh">直接地输出为 Full DAISY</value>
       </prop>
      </node>
     </node>
