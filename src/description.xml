@@ -46,6 +46,7 @@
         <src lang="es" xlink:href="description/desc_es.txt"/>
         <src lang="fr" xlink:href="description/desc_fr.txt"/>
         <src lang="nl" xlink:href="description/desc_nl.txt"/>
+        <src lang="de" xlink:href="description/desc_de.txt"/>
     </extension-description>
 
     <!-- Extension Dialog Icon -->
