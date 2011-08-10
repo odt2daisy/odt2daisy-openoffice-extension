@@ -1,7 +1,7 @@
 /**
  *  odt2daisy - OpenDocument to DAISY XML/Audio
  *
- *  (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved.
+ *  (c) Copyright 2008 - 2011 by Vincent Spiewak, All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Lesser Public License as published by
@@ -37,12 +37,22 @@ import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
 
 /**
- *
- * @author Administrateur
+ * Utility class for user interface.
+ * @author Vincent Spiewak
  */
 public class UnoAwtUtils {
 
+    /**
+     * Utility function for displaying a Save as dialog.
+     *
+     * @param filename Initial file name shown in Save as dialog.
+     * @param filterName Filter name for the dialog.
+     * @param filterPattern Filter pattern for the dialog.
+     * @param m_xContext Component context to be passed to a component via ::com::sun::star::lang::XSingleComponentFactory.
+     * @return The path from the dialog.
+     */
     public static String showSaveAsDialog(String filename, String filterName, String filterPattern, XComponentContext m_xContext) {
+    //public static String showSaveAsDialog(String filename, String filterName, String filterPattern, String initialDirectory, XComponentContext m_xContext) { //@todo change initial output dir
         String sStorePath = "";
         XComponent xComponent = null;
         XMultiComponentFactory m_xMCF = m_xContext.getServiceManager();
@@ -72,11 +82,11 @@ public class UnoAwtUtils {
             XFilterManager xFilterManager = (XFilterManager) UnoRuntime.queryInterface(XFilterManager.class, xFilePicker);
             xFilterManager.appendFilter(filterName, filterPattern);
 
-            // set the initial displaydirectory. 
+            // set the initial display directory.
             Object oPathSettings = m_xMCF.createInstanceWithContext("com.sun.star.util.PathSettings", m_xContext);
             XPropertySet xPropertySet = (XPropertySet) com.sun.star.uno.UnoRuntime.queryInterface(XPropertySet.class, oPathSettings);
-            String sTemplateUrl = (String) xPropertySet.getPropertyValue("Work_writable");
-            xFilePicker.setDisplayDirectory(sTemplateUrl);
+            String sInitialDir = (String) xPropertySet.getPropertyValue("Work_writable");
+            xFilePicker.setDisplayDirectory(sInitialDir); //@todo change output dir to current document location!
 
             //set the initial filename
                 xFilePicker.setDefaultName(filename);
@@ -103,6 +113,16 @@ public class UnoAwtUtils {
         return sStorePath;
     }
 
+    /**
+     * Displays a dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxType The type of dialog (infobox, warningbox, errorbox, querybox or messbox).
+     * @param messageBoxButtons A number that specifies which buttons should be available on the message box.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The execution of the dialog.
+     */
     public static short showMessageBox(XWindowPeer parentWindowPeer, String messageBoxType, int messageBoxButtons, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxType == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -117,6 +137,14 @@ public class UnoAwtUtils {
         return box.execute();
     }
 
+    /**
+     * Displays an information dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The information dialog.
+     */
     public static short showInfoMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -125,6 +153,14 @@ public class UnoAwtUtils {
         return showMessageBox(parentWindowPeer, "infobox", MessageBoxButtons.BUTTONS_OK, messageBoxTitle, message);
     }
 
+    /**
+     * Displays an error dialog, unless one of the parameters is null.
+     * 
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The error dialog.
+     */
     public static short showErrorMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -133,6 +169,14 @@ public class UnoAwtUtils {
         return showMessageBox(parentWindowPeer, "errorbox", MessageBoxButtons.BUTTONS_OK, messageBoxTitle, message);
     }
 
+    /**
+     * Displays a Yes/No confirmation dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The Yes/No confirmation dialog.
+     */
     public static short showYesNoWarningMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -141,6 +185,14 @@ public class UnoAwtUtils {
         return showMessageBox(parentWindowPeer, "warningbox", MessageBoxButtons.BUTTONS_YES_NO + MessageBoxButtons.DEFAULT_BUTTON_NO, messageBoxTitle, message);
     }
 
+    /**
+     * Displays an OK/Cancel confirmation dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The OK/Cancel dialog.
+     */
     public static short showOkCancelWarningMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -149,6 +201,14 @@ public class UnoAwtUtils {
         return showMessageBox(parentWindowPeer, "warningbox", MessageBoxButtons.BUTTONS_OK_CANCEL + MessageBoxButtons.DEFAULT_BUTTON_OK, messageBoxTitle, message);
     }
 
+    /**
+     * Displays a Yes/No/Cancel confirmation dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The Yes/No/Cancel dialog.
+     */
     public static short showQuestionMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -157,6 +217,14 @@ public class UnoAwtUtils {
         return showMessageBox(parentWindowPeer, "querybox", MessageBoxButtons.BUTTONS_YES_NO_CANCEL + MessageBoxButtons.DEFAULT_BUTTON_YES, messageBoxTitle, message);
     }
 
+    /**
+     * Displays an Abort/Retry/Ignore dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The Abort/Retry/Ignore dialog.
+     */
     public static short showAbortRetryIgnoreErrorMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
@@ -165,6 +233,14 @@ public class UnoAwtUtils {
         return showMessageBox(parentWindowPeer, "errorbox", MessageBoxButtons.BUTTONS_ABORT_IGNORE_RETRY + MessageBoxButtons.DEFAULT_BUTTON_RETRY, messageBoxTitle, message);
     }
 
+    /**
+     * Displays a Retry/Cancel dialog, unless one of the parameters is null.
+     *
+     * @param parentWindowPeer The actual window implementation on the device.
+     * @param messageBoxTitle The title of the dialog.
+     * @param message The text to be displayed in the dialog.
+     * @return The Retry/Cancel dialog.
+     */
     public static short showRetryCancelErrorMessageBox(XWindowPeer parentWindowPeer, String messageBoxTitle, String message) {
         if (parentWindowPeer == null || messageBoxTitle == null || message == null) {
             return 0;
