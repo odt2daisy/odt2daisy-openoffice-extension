@@ -1,7 +1,7 @@
 /**
  *  odt2daisy - OpenDocument to DAISY XML/Audio
  *
- *  (c) Copyright 2008 - 2009 by Vincent Spiewak, All Rights Reserved.
+ *  (c) Copyright 2008 - 2011 by Vincent Spiewak, All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Lesser Public License as published by
@@ -99,12 +99,23 @@ public class UnoGUI {
 
     private boolean isFullExport = false;
 
+    /**
+     *
+     * @param m_xContext Component context to be passed to a component via ::com::sun::star::lang::XSingleComponentFactory.
+     * @param m_xFrame Frame object that serves as an "anchor" object where a component can be attached to.
+     */
     public UnoGUI(XComponentContext m_xContext, XFrame m_xFrame){
 
         this(m_xContext, m_xFrame, false);
 
     }
 
+    /**
+     *
+     * @param m_xContext Component context to be passed to a component via ::com::sun::star::lang::XSingleComponentFactory.
+     * @param m_xFrame Frame object that serves as an "anchor" object where a component can be attached to.
+     * @param isFullExport true if the content should be exported as Full DAISY, false if the content should be exported as DAISY XML (no audio).
+     */
     public UnoGUI(XComponentContext m_xContext, XFrame m_xFrame, boolean isFullExport) {
 
         this.m_xContext = m_xContext;
@@ -171,6 +182,11 @@ public class UnoGUI {
 
     }
 
+    /**
+     * Save as DAISY XML.
+     *
+     * @return true if the the content could be saved as valid DAISY XML, false otherwise (e.g. an error occurred).
+     */
     public boolean saveAsXML() {
 
         Odt2Daisy odt2daisy = null;
@@ -181,11 +197,11 @@ public class UnoGUI {
 
         try {
 
-            // start status bar
+            // Start status bar
             xStatusIndicator.start(L10N_StatusIndicator_Step_1, 100);
             xStatusIndicator.setValue(5);
 
-            // Request a temp file
+            // Request a temporary file
             xStatusIndicator.setText(L10N_StatusIndicator_Step_2);
             xStatusIndicator.setValue(10);
 
@@ -203,7 +219,7 @@ public class UnoGUI {
             logger.fine("tmpOdtUnoUrl:" + tmpOdtUnoUrl);
 
 
-            // Export in ODT Format using Uno API
+            // Export in ODT Format using UNO API
             xStatusIndicator.setText(L10N_StatusIndicator_Step_3);
             xStatusIndicator.setValue(15);
 
@@ -225,7 +241,7 @@ public class UnoGUI {
             xStatusIndicator.setValue(20);
 
             logger.fine("create and init odt2daisy");
-            odt2daisy = new Odt2Daisy(tmpOdtUrl);
+            odt2daisy = new Odt2Daisy(tmpOdtUrl); //@todo add initial output directory URL
             odt2daisy.init();
 
             xStatusIndicator.setText(L10N_StatusIndicator_Step_5);
@@ -248,7 +264,7 @@ public class UnoGUI {
 
             }
 
-            // Show a warning if ODT doesn't have any headings
+            // Show a warning if ODT does not contain any headings (Heading 1)
             if (!odt2daisy.isUsingHeadings()) {
 
                 String messageBoxTitle =
@@ -260,12 +276,15 @@ public class UnoGUI {
 
                 // Abort on Cancel
                 if (result == (short) 3) {
-                    logger.fine("User cancel export");
+                    logger.fine("User cancelled export");
                     return false;
                 }
             }
 
-            // Raise Export File Dialog
+            // @todo Show a warning if ODT contains images in format not supported by DAISY 3.
+
+
+            // Raise File Export Dialog @todo add initial output directory URL
             exportUnoUrl = UnoAwtUtils.showSaveAsDialog(L10N_Default_Export_Filename, "DAISY DTBook XML", "*.xml", m_xContext);
             logger.fine("exportUnoUrl=" + exportUnoUrl);
 
@@ -379,6 +398,9 @@ public class UnoGUI {
 
     }
 
+    /**
+     * Save as Full DAISY.
+     */
     public void saveAsFull() {
 
         try {
@@ -539,6 +561,9 @@ public class UnoGUI {
 
     }
 
+    /**
+     * Display information dialog saying that the content was exported as valid DAISY.
+     */
     public void showOkSaveAsXML() {
 
         // Valid DTD Message
@@ -552,6 +577,11 @@ public class UnoGUI {
 
     }
 
+    /**
+     * Flush any buffered output for the logger.
+     *
+     * @param fh The Handler object takes log messages from the Logger and exports them.
+     */
     private static void flushLogger(Handler fh) {
         if (fh != null) {
             fh.flush();
@@ -559,10 +589,17 @@ public class UnoGUI {
         }
     }
 
+    /**
+     * Flush any buffered output for the logger.
+     */
     public void flushLogger(){
         flushLogger(fh);
     }
 
+    /**
+     * Stops the progress indicator.
+     * @see http://api.openoffice.org/docs/common/ref/com/sun/star/task/XStatusIndicator.html
+     */
     public void stopStatusIndicator() {
         if(xStatusIndicator != null){
             xStatusIndicator.end();
