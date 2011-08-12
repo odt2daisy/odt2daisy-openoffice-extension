@@ -34,6 +34,7 @@ import com.versusoft.packages.ooo.UnoUtils;
 import com.versusoft.packages.ooo.odt2daisy.Odt2Daisy;
 import com.versusoft.packages.ooo.odt2daisy.addon.pipelinelite.PipelineLite;
 import java.io.File;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -53,6 +54,7 @@ public class UnoGUI {
     // L10N Strings
     private static String L10N_MessageBox_Warning_Title = null;
     private static String L10N_No_Headings_Warning = null;
+    private static String L10N_Incompatible_Images_Error = null;
     private static String L10N_Default_Export_Filename = null;
     private static String L10N_MessageBox_Error_Title = null;
     private static String L10N_DTD_Error_Message = null;
@@ -136,6 +138,7 @@ public class UnoGUI {
             OOoLocale = new Locale(UnoUtils.getUILocale(m_xContext));
             L10N_MessageBox_Warning_Title = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("MessageBox_Warning_Title");
             L10N_No_Headings_Warning = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("No_Headings_Warning");
+            L10N_Incompatible_Images_Error = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Incompatible_Images_Error");
             L10N_Default_Export_Filename = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("Default_Export_Filename");
             L10N_MessageBox_Error_Title = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("MessageBox_Error_Title");
             L10N_DTD_Error_Message = java.util.ResourceBundle.getBundle("com/versusoft/packages/ooo/odt2daisy/addon/l10n/Bundle", OOoLocale).getString("DTD_Error_Message");
@@ -281,7 +284,7 @@ public class UnoGUI {
                 }
             }
 
-            // @todo Show a warning if ODT contains images in format not supported by DAISY 3.
+            // @todo Ideally, warning if ODT contains images in format not supported by DAISY 3 should be here, instead of after the Save as dialog.
 
 
             // Raise File Export Dialog @todo add initial output directory URL
@@ -323,9 +326,9 @@ public class UnoGUI {
             xStatusIndicator.setValue(45);
 
             if (dialog.isPaginationEnable()) {
-                logger.info("pagination process started");
+                logger.info("Pagination process started");
                 odt2daisy.paginationProcessing();
-                logger.info("pagination process end");
+                logger.info("Pagination process end");
 
             }
 
@@ -333,7 +336,7 @@ public class UnoGUI {
             xStatusIndicator.setText(L10N_StatusIndicator_Step_7);
             xStatusIndicator.setValue(60);
             
-            logger.fine("trying daisy correction");
+            logger.fine("Trying ODF XML correction");// was: "daisy correction"??
             odt2daisy.correctionProcessing();
 
             // Set Params according to DAISY Expport dialog
@@ -349,14 +352,28 @@ public class UnoGUI {
             xStatusIndicator.setText(L10N_StatusIndicator_Step_8);
             xStatusIndicator.setValue(70);
 
-            logger.fine("trying daisy translation");
+            logger.fine("Trying daisy translation");
             odt2daisy.convertAsDTBook(exportUrl, IMAGE_DIR);
+
+            //@todo Check whether imagesProcessing(dtbookFile, imageDir) [in odt2daisy object] can be moved to a method that is called before odt2daisy.convertAsDTBook(exportUrl, IMAGE_DIR)
+            // or just check merged XML instead (i.e. without checking file names stored inside ODF).
+            if (odt2daisy.containsIncompatibleImages()) {
+                LinkedHashMap<String, String> incompatibleImg = odt2daisy.getIncompatibleImages();
+                StringBuffer messageWithImgList = new StringBuffer(L10N_Incompatible_Images_Error);
+                for (java.util.Map.Entry<String,String> entry: incompatibleImg.entrySet()) {
+                    messageWithImgList.append("* ").append(entry.getKey()).append("\n");
+                }
+                String message = messageWithImgList.toString();
+                Short result = UnoAwtUtils.showErrorMessageBox(parentWindowPeer, L10N_MessageBox_Error_Title, message);
+                logger.severe(message);
+                return false;
+            }
 
             // DTD Validation
             xStatusIndicator.setText(L10N_StatusIndicator_Step_9);
             xStatusIndicator.setValue(90);
 
-            logger.fine("trying daisy DTD validation");
+            logger.fine("Trying daisy DTD validation");
             odt2daisy.validateDTD(exportUrl);
 
             if (odt2daisy.getErrorHandler().hadError()) {
