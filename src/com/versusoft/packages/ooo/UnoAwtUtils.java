@@ -25,8 +25,8 @@ import com.sun.star.awt.XMessageBox;
 import com.sun.star.awt.XMessageBoxFactory;
 import com.sun.star.awt.XWindowPeer;
 import com.sun.star.beans.XPropertySet;
-import com.sun.star.frame.XDesktop;
-import com.sun.star.frame.XModel;
+//import com.sun.star.frame.XDesktop;
+//import com.sun.star.frame.XModel;
 import com.sun.star.lang.XComponent;
 import com.sun.star.lang.XInitialization;
 import com.sun.star.lang.XMultiComponentFactory;
@@ -52,7 +52,7 @@ public class UnoAwtUtils {
      * @return The path from the dialog.
      */
     public static String showSaveAsDialog(String filename, String filterName, String filterPattern, XComponentContext m_xContext) {
-    //public static String showSaveAsDialog(String filename, String filterName, String filterPattern, String initialDirectory, XComponentContext m_xContext) { //@todo change initial output dir
+    //public static String showSaveAsDialog(String filename, String filterName, String filterPattern, String initialDir, XComponentContext m_xContext) { //@todo change initial output dir
         String sStorePath = "";
         XComponent xComponent = null;
         XMultiComponentFactory m_xMCF = m_xContext.getServiceManager();
