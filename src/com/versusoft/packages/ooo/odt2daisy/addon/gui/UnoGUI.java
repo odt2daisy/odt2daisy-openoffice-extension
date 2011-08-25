@@ -367,6 +367,8 @@ public class UnoGUI {
                 Short result = UnoAwtUtils.showErrorMessageBox(parentWindowPeer, L10N_MessageBox_Error_Title, message);
                 logger.severe(message);
                 return false;
+            } else {
+                logger.fine("No incompatible images.");
             }
 
             // DTD Validation
