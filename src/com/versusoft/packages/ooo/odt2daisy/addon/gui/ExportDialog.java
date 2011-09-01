@@ -182,6 +182,11 @@ public class ExportDialog {
                     XMultiServiceFactory.class, dialogModel);
 
 
+            /* UNO API does not support explicit linking between label and widget.
+             * To allow screen readers to guess widget's label, the element order is important.
+             * It should work automatically if you create the label widget directly before
+             * creating the to-be-labeled widget.
+            */
             // Init UID Label
             Object uidLabelModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlFixedTextModel");
@@ -196,97 +201,6 @@ public class ExportDialog {
             xPSetLabel1.setPropertyValue("Height", new Integer(labelHeight));
             xPSetLabel1.setPropertyValue("Name", _uidLabelName);
             xPSetLabel1.setPropertyValue("Label", L10N_uidLabelValue);
-
-
-            // Init Doctitle Label
-            Object doctitleLabelModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlFixedTextModel");
-
-            XPropertySet xPSetLabel2 = (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, doctitleLabelModel);
-
-            xPSetLabel2.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
-            xPSetLabel2.setPropertyValue("PositionY", new Integer(33));
-            xPSetLabel2.setPropertyValue("Width", new Integer(shortLabelWidth));
-            xPSetLabel2.setPropertyValue("Height", new Integer(labelHeight));
-            xPSetLabel2.setPropertyValue("Name", _doctitleLabelName);
-            xPSetLabel2.setPropertyValue("Label", L10N_doctitleLabelValue);
-
-
-            // Init Creator Label
-            Object creatorLabelModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlFixedTextModel");
-
-            XPropertySet xPSetLabel3 = (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, creatorLabelModel);
-
-            xPSetLabel3.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
-            xPSetLabel3.setPropertyValue("PositionY", new Integer(48));
-            xPSetLabel3.setPropertyValue("Width", new Integer(shortLabelWidth));
-            xPSetLabel3.setPropertyValue("Height", new Integer(labelHeight));
-            xPSetLabel3.setPropertyValue("Name", _creatorLabelName);
-            xPSetLabel3.setPropertyValue("Label", L10N_creatorLabelValue);
-
-
-            // Init Publisher Label
-            Object publisherLabelModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlFixedTextModel");
-
-            XPropertySet xPSetLabel4 = (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, publisherLabelModel);
-
-            xPSetLabel4.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
-            xPSetLabel4.setPropertyValue("PositionY", new Integer(63));
-            xPSetLabel4.setPropertyValue("Width", new Integer(shortLabelWidth));
-            xPSetLabel4.setPropertyValue("Height", new Integer(labelHeight));
-            xPSetLabel4.setPropertyValue("Name", _publisherLabelName);
-            xPSetLabel4.setPropertyValue("Label", L10N_publisherLabelValue);
-
-
-            // Init Producer Label
-            Object producerLabelModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlFixedTextModel");
-
-            XPropertySet xPSetLabel5 = (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, producerLabelModel);
-
-            xPSetLabel5.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
-            xPSetLabel5.setPropertyValue("PositionY", new Integer(78));
-            xPSetLabel5.setPropertyValue("Width", new Integer(shortLabelWidth));
-            xPSetLabel5.setPropertyValue("Height", new Integer(labelHeight));
-            xPSetLabel5.setPropertyValue("Name", _producerLabelName);
-            xPSetLabel5.setPropertyValue("Label", L10N_producerLabelValue);
-
-
-            // Init Language Label
-            Object langLabelModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlFixedTextModel");
-
-            XPropertySet xPSetLabel6 = (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, langLabelModel);
-
-            xPSetLabel6.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
-            xPSetLabel6.setPropertyValue("PositionY", new Integer(93));
-            xPSetLabel6.setPropertyValue("Width", new Integer(shortLabelWidth));
-            xPSetLabel6.setPropertyValue("Height", new Integer(labelHeight));
-            xPSetLabel6.setPropertyValue("Name", _langLabelName);
-            xPSetLabel6.setPropertyValue("Label", L10N_langLabelValue);
-            //xPSetLabel6.setPropertyValue("MultiLine", new Boolean(true));
-
-            // Init Bitrate Label
-            Object bitrateLabelModel = xMultiServiceFactory.createInstance(
-                    "com.sun.star.awt.UnoControlFixedTextModel");
-
-            XPropertySet xPSetLabel7 = (XPropertySet) UnoRuntime.queryInterface(
-                    XPropertySet.class, bitrateLabelModel);
-
-            xPSetLabel7.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
-            xPSetLabel7.setPropertyValue("PositionY", new Integer(153));
-            xPSetLabel7.setPropertyValue("Width", new Integer(shortLabelWidth));
-            xPSetLabel7.setPropertyValue("Height", new Integer(labelHeight));
-            xPSetLabel7.setPropertyValue("Name", _bitrateLabelName);
-            xPSetLabel7.setPropertyValue("Label", L10N_bitrateLabelValue);
-
 
             // Init UID Field
             Object uidFieldModel = xMultiServiceFactory.createInstance(
@@ -304,7 +218,21 @@ public class ExportDialog {
             //xPSetField1.setPropertyValue("Text", new String("UID"));
 
 
-            // Init Doctitle Field            
+            // Init Doctitle Label
+            Object doctitleLabelModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlFixedTextModel");
+
+            XPropertySet xPSetLabel2 = (XPropertySet) UnoRuntime.queryInterface(
+                    XPropertySet.class, doctitleLabelModel);
+
+            xPSetLabel2.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
+            xPSetLabel2.setPropertyValue("PositionY", new Integer(33));
+            xPSetLabel2.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel2.setPropertyValue("Height", new Integer(labelHeight));
+            xPSetLabel2.setPropertyValue("Name", _doctitleLabelName);
+            xPSetLabel2.setPropertyValue("Label", L10N_doctitleLabelValue);
+
+            // Init Doctitle Field
             Object doctitleFieldModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlEditModel");
 
@@ -319,6 +247,20 @@ public class ExportDialog {
             xPSetField2.setPropertyValue("TabIndex", new Short((short) 1));
             //xPSetField2.setPropertyValue("Text", new String("Doctitle"));
 
+
+            // Init Creator Label
+            Object creatorLabelModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlFixedTextModel");
+
+            XPropertySet xPSetLabel3 = (XPropertySet) UnoRuntime.queryInterface(
+                    XPropertySet.class, creatorLabelModel);
+
+            xPSetLabel3.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
+            xPSetLabel3.setPropertyValue("PositionY", new Integer(48));
+            xPSetLabel3.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel3.setPropertyValue("Height", new Integer(labelHeight));
+            xPSetLabel3.setPropertyValue("Name", _creatorLabelName);
+            xPSetLabel3.setPropertyValue("Label", L10N_creatorLabelValue);
 
             // Init Creator Field
             Object creatorFieldModel = xMultiServiceFactory.createInstance(
@@ -336,6 +278,20 @@ public class ExportDialog {
             //xPSetField3.setPropertyValue("Text", new String("Creator"));
 
 
+            // Init Publisher Label
+            Object publisherLabelModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlFixedTextModel");
+
+            XPropertySet xPSetLabel4 = (XPropertySet) UnoRuntime.queryInterface(
+                    XPropertySet.class, publisherLabelModel);
+
+            xPSetLabel4.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
+            xPSetLabel4.setPropertyValue("PositionY", new Integer(63));
+            xPSetLabel4.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel4.setPropertyValue("Height", new Integer(labelHeight));
+            xPSetLabel4.setPropertyValue("Name", _publisherLabelName);
+            xPSetLabel4.setPropertyValue("Label", L10N_publisherLabelValue);
+
             // Init Publisher Field
             Object publisherFieldModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlEditModel");
@@ -352,6 +308,20 @@ public class ExportDialog {
             //xPSetField4.setPropertyValue("Text", new String("Publisher"));
 
 
+            // Init Producer Label
+            Object producerLabelModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlFixedTextModel");
+
+            XPropertySet xPSetLabel5 = (XPropertySet) UnoRuntime.queryInterface(
+                    XPropertySet.class, producerLabelModel);
+
+            xPSetLabel5.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
+            xPSetLabel5.setPropertyValue("PositionY", new Integer(78));
+            xPSetLabel5.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel5.setPropertyValue("Height", new Integer(labelHeight));
+            xPSetLabel5.setPropertyValue("Name", _producerLabelName);
+            xPSetLabel5.setPropertyValue("Label", L10N_producerLabelValue);
+
             // Init Producer Field
             Object producerFieldModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlEditModel");
@@ -366,6 +336,21 @@ public class ExportDialog {
             xPSetField9.setPropertyValue("TabIndex", new Short((short) 4));
             //xPSetField9.setPropertyValue("Text", new String("Publisher"));
 
+
+            // Init Language Label
+            Object langLabelModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlFixedTextModel");
+
+            XPropertySet xPSetLabel6 = (XPropertySet) UnoRuntime.queryInterface(
+                    XPropertySet.class, langLabelModel);
+
+            xPSetLabel6.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
+            xPSetLabel6.setPropertyValue("PositionY", new Integer(93));
+            xPSetLabel6.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel6.setPropertyValue("Height", new Integer(labelHeight));
+            xPSetLabel6.setPropertyValue("Name", _langLabelName);
+            xPSetLabel6.setPropertyValue("Label", L10N_langLabelValue);
+            //xPSetLabel6.setPropertyValue("MultiLine", new Boolean(true));
 
             // Init Language Field
             Object langFieldModel = xMultiServiceFactory.createInstance(
@@ -440,6 +425,20 @@ public class ExportDialog {
             xPSetField8.setPropertyValue("State", SHORT_FALSE);
 
 
+            // Init Bitrate Label
+            Object bitrateLabelModel = xMultiServiceFactory.createInstance(
+                    "com.sun.star.awt.UnoControlFixedTextModel");
+
+            XPropertySet xPSetLabel7 = (XPropertySet) UnoRuntime.queryInterface(
+                    XPropertySet.class, bitrateLabelModel);
+
+            xPSetLabel7.setPropertyValue("PositionX", new Integer(shortLabelPositionX));
+            xPSetLabel7.setPropertyValue("PositionY", new Integer(153));
+            xPSetLabel7.setPropertyValue("Width", new Integer(shortLabelWidth));
+            xPSetLabel7.setPropertyValue("Height", new Integer(labelHeight));
+            xPSetLabel7.setPropertyValue("Name", _bitrateLabelName);
+            xPSetLabel7.setPropertyValue("Label", L10N_bitrateLabelValue);
+
             // Init Bitrate ComboBox
             bitrateControlModel = xMultiServiceFactory.createInstance(
                     "com.sun.star.awt.UnoControlListBoxModel"); // replaces UnoControlComboBoxModel with UnoControlListBoxModel
@@ -458,6 +457,7 @@ public class ExportDialog {
             //xPSetComboBox.setPropertyValue("Text", "32 kbits/s"); // from service UnoControlComboBoxModel
             short[] selectedItems = {(short) 0};
             xPSetComboBox.setPropertyValue("SelectedItems", selectedItems); // from service UnoControlListBoxModel
+
 
             // Init Fix Routine CheckBox
             Object fixRoutineCBoxModel = xMultiServiceFactory.createInstance(
@@ -538,18 +538,23 @@ public class ExportDialog {
             xNameCont.insertByName(_cancelButtonName, cancelButtonModel);
 
             xNameCont.insertByName(_uidLabelName, uidLabelModel);
-            xNameCont.insertByName(_doctitleLabelName, doctitleLabelModel);
-            xNameCont.insertByName(_creatorLabelName, creatorLabelModel);
-            xNameCont.insertByName(_publisherLabelName, publisherLabelModel);
-            xNameCont.insertByName(_producerLabelName, producerLabelModel);
-            xNameCont.insertByName(_langLabelName, langLabelModel);
-
             xNameCont.insertByName(_uidFieldName, uidFieldModel);
+
+            xNameCont.insertByName(_doctitleLabelName, doctitleLabelModel);
             xNameCont.insertByName(_doctitleFieldName, doctitleFieldModel);
+
+            xNameCont.insertByName(_creatorLabelName, creatorLabelModel);
             xNameCont.insertByName(_creatorFieldName, creatorFieldModel);
+
+            xNameCont.insertByName(_publisherLabelName, publisherLabelModel);
             xNameCont.insertByName(_publisherFieldName, publisherFieldModel);
+
+            xNameCont.insertByName(_producerLabelName, producerLabelModel);
             xNameCont.insertByName(_producerFieldName, producerFieldModel);
+
+            xNameCont.insertByName(_langLabelName, langLabelModel);
             xNameCont.insertByName(_langFieldName, langFieldModel);
+
             xNameCont.insertByName(_levelCBoxName, levelCBoxModel);
             xNameCont.insertByName(_pageCBoxName, pageCBoxModel);
             xNameCont.insertByName(_cssCBoxName, cssCBoxModel);
