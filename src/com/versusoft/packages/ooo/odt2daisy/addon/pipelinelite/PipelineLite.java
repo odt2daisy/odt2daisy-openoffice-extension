@@ -166,6 +166,15 @@ public class PipelineLite {
     public int launchNarrator(String folder, String fileIn, String fileOut, boolean fixRoutine, boolean sentDetection, int bitrate) throws Exception {
         Runtime runtime = Runtime.getRuntime();
         Process process;
+        // Detect whether the JVM is 32-bit or 64-bit.
+        // Warning: this is an undocumented Sun feature not listed at http://download.oracle.com/javase/6/docs/api/java/lang/System.html#getProperties%28%29
+        // The system property sun.arch.data.model has the value "32", "64", or "unknown". (http://www.oracle.com/technetwork/java/hotspotfaq-138619.html#64bit_detection , http://stackoverflow.com/questions/1160448/detecting-a-64-bit-jre-in-a-32-bit-browser)
+        String jvmBitNess = System.getProperty("sun.arch.data.model");
+        if (jvmBitNess == null || jvmBitNess.length() == 0 ) {
+            String jvmName = System.getProperty("java.vm.name");
+            jvmBitNess = jvmName.contains("64")? "64" : "32";
+        }
+        logger.info("jvmBitNess = " + jvmBitNess);
 
         String extracted_dir = folder;
         String pipeline_dir = extracted_dir + PIPELINE_FOLDER_NAME;
