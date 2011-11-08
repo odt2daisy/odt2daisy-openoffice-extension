@@ -8,7 +8,7 @@
              xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <!-- Release Number (set with ant)-->
-    <version value="2.1.1"/>
+    <version value="2.1.2"/>
 
     <!-- Target Platform (set with ant) -->
     <platform value="@platform-oxt@"/>
