@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--                                                                       -->
 <!-- odt2daisy - OpenDocument to DAISY XML/Audio                           -->
-<!-- (c) Copyright 2008 - 20011 by Vincent Spiewak, and contributors, ...  -->
+<!-- (c) Copyright 2008 - 2012 by Vincent Spiewak, and contributors, ...  -->
 <!-- All Rights Reserved.                                                  -->
 <!--                                                                       -->
 <oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Addons" oor:package="org.openoffice.Office">
