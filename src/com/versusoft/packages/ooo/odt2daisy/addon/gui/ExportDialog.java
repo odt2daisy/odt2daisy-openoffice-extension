@@ -1,7 +1,7 @@
 /**
  *  odt2daisy - OpenDocument to DAISY XML/Audio
  *
- *  (c) Copyright 2008 - 20011 by Vincent Spiewak and contributors, All Rights Reserved.
+ *  (c) Copyright 2008 - 2012 by Vincent Spiewak and contributors, All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Lesser Public License as published by
