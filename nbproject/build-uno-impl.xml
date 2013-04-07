@@ -9,7 +9,7 @@
     <!-- ================================================================================== -->
     <target depends="-do-init" name="-uno-project-init">
         <property file="nbproject/project-uno.properties"/>
-        <property name="build.uno.version" value="2.0.5"/>
+        <property name="build.uno.version" value="2.0.6.000205"/>
         <!-- set variablers from SDK and Office -->
         <echo message="setting up UNO environment ..."/>
         <property name="office.unopkg" value="${office.program.dir}${file.separator}unopkg"/>
@@ -312,7 +312,7 @@
     <!-- test for help dir is necessary because zipfileset fails if dir not there -->
     <target depends="-help-exists" if="do.help" name="-uno-package-with-help">
         <zip destfile="${uno.package.name}" update="true">
-            <zipfileset dir="${help.dir}" includes="**/*.xhp" prefix="${help.dir}"/>
+            <zipfileset dir="${help.dir}" includes="${help.content.extensions}" prefix="${help.dir}"/>
         </zip>
     </target>
     <target name="-dialogs-exists">
@@ -321,7 +321,7 @@
     <!-- test for dialogs dir is necessary because zipfileset fails if dir not there -->
     <target depends="-dialogs-exists" if="do.dialogs" name="-uno-package-with-dialogs">
         <zip destfile="${uno.package.name}" update="true">
-            <zipfileset dir="${dialogs.dir}" includes="**/*.xdl,**/*.properties,**/*.default,**/*.png" prefix="dialogs"/>
+            <zipfileset dir="${dialogs.dir}" includes="${dialog.content.extensions}" prefix="dialogs"/>
         </zip>
     </target>
     <target depends="-uno-package-with-license,-uno-package-with-help,-uno-package-with-dialogs,-uno-package-with-description" description="Creates UNO extension pacakge" name="-do-uno-package">
