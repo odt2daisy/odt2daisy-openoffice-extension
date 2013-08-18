@@ -48,7 +48,7 @@ public class PipelineLite {
     private final static String NARRATOR_SCRIPT_NAME = "DAISY Pipeline TTS Narrator.taskScript";
     private final static String PIPELINE_ZIP_PATH = "/com/versusoft/packages/ooo/odt2daisy/addon/pipelinelite/build/pipeline-lite.zip";
     //
-    private final static String PIPELINE_VERSION = "VERSION_20100325";
+    private final static String PIPELINE_VERSION = "VERSION_20130818";
     //
     public final static long REQUIRED_KB = 60000;
     private final Logger logger;
